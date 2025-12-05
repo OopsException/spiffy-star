@@ -70,12 +70,37 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				height: 1px;
 				background: rgba(var(--gray-light), 0.9);
 			}
+			/* Content column: keep a comfortable measure for reading while
+			   allowing the area to be wider and more fluid on small screens. */
 			.prose {
+				/* prefer an upper bound of ~70 characters for readability */
 				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
+				max-width: min(70ch, calc(100% - 2em));
+				margin: 0 auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
+			}
+
+			/* Paragraph typography: airy, editorial rhythm */
+			.prose p {
+				line-height: 1.75;
+				margin-bottom: 1.4rem;
+				max-width: 70ch; /* soft cap to keep characters-per-line comfortable */
+				hyphens: auto;
+				-webkit-hyphens: auto;
+				-ms-hyphens: auto;
+				text-wrap: pretty;
+				overflow-wrap: break-word;
+			}
+
+			.prose h1,
+			.prose h2,
+			.prose h3,
+			.prose h4,
+			.prose h5,
+			.prose h6 {
+				/* Keep headings using existing typography; ensure they don't inherit the paragraph measure */
+				max-width: none;
 			}
 			.last-updated-on {
 				font-style: italic;
@@ -85,6 +110,28 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			@media (max-width: 720px) {
 				.hero-image { border-radius: 10px; }
 				.hero-title { font-size: 1.15rem; }
+
+				/* Make the content column more fluid on smaller devices while
+				   keeping balanced margins. */
+				.prose {
+					width: calc(100% - 2rem);
+					max-width: 92%;
+					padding: 0.9rem;
+				}
+			}
+
+			/* Extra small screens: allow the prose column to use up to 92% width
+			   so reading feels natural without harsh gutters. */
+			@media (max-width: 430px) {
+				.prose {
+					width: 92%;
+					max-width: 92%;
+					padding: 0.75rem;
+				}
+				.prose p {
+					/* remove the soft max-width so paragraphs can flow naturally */
+					max-width: none;
+				}
 			}
 		</style>
 	</head>
