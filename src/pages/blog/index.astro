@@ -9,8 +9,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 // Load posts, exclude any with `draft: true` in frontmatter, then sort by date
 const posts = (await getCollection('blog'))
-	.filter((p) => (p.data as any).draft !== true)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	.filter((p) => !((p.data as any).draft))
+	.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.pubDate)));
 ---
 
 <!doctype html>

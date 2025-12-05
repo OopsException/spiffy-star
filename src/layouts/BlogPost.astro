@@ -124,6 +124,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					max-width: 96%;
 					padding: 0.9rem;
 				}
+
+				/* Make the title/header sit flush with the image edge on mobile */
+				.hero-header {
+					padding-left: 0;
+					padding-right: 0;
+					/* tighten top spacing a bit so header hugs the image */
+					margin: 0.35rem auto 1rem;
+				}
 			}
 
 			/* Extra small screens: allow the prose column to use up to 92% width
