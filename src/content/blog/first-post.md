@@ -2,7 +2,7 @@
 title: 'First post'
 description: 'Test post'
 pubDate: 'Dec 06 2025'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+heroImage: '../../assets/coffee-illustration-different-coffee-sizes-and-typesjpg.jpg'
 draft: false
 ---
 
