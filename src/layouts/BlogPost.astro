@@ -33,14 +33,16 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.hero-image img.image {
 				display: block;
 				width: 100%;
-				height: 280px; /* shallow Notion-style cover */
+				/* Use intrinsic height to preserve image aspect ratio and avoid forced cropping */
+				height: auto;
 				object-fit: cover;
 				object-position: center;
 				border-radius: 10px;
 				box-shadow: none;
 			}
+			/* Remove forced fixed heights on mobile so the image scales naturally */
 			@media (max-width: 720px) {
-				.hero-image img { height: 220px; }
+				.hero-image img { height: auto; }
 			}
 
 			/* Clean header block directly under the cover image */
@@ -115,10 +117,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				.hero-title { font-size: 1.15rem; }
 
 				/* Make the content column more fluid on smaller devices while
-				   keeping balanced margins. */
+				   keeping balanced margins. Increase width slightly (~1.2x feel).
+				*/
 				.prose {
-					width: calc(100% - 2rem);
-					max-width: 92%;
+					width: calc(100% - 1.5rem);
+					max-width: 96%;
 					padding: 0.9rem;
 				}
 			}
@@ -127,9 +130,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			   so reading feels natural without harsh gutters. */
 			@media (max-width: 430px) {
 				.prose {
-					width: 92%;
-					max-width: 92%;
-					padding: 0.75rem;
+					width: 96%;
+					max-width: 96%;
+					padding: 0.6rem;
 				}
 				.prose p {
 					/* remove the soft max-width so paragraphs can flow naturally */
