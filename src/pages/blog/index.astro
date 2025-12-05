@@ -90,10 +90,12 @@ const posts = (await getCollection('blog')).sort(
 				ul li { flex: 0 0 100%; }
 				main { padding: 0.75rem; }
 
-				/* FORCE a shallow thumbnail on mobile */
+				/* MOBILE: cap preview height, keep natural aspect ratio to avoid oversized previews */
 				img.image.image--cover {
 					width: 100% !important;
-					height: 150px !important;
+					/* allow images to scale naturally but not exceed this height on small screens */
+					max-height: 180px !important;
+					height: auto !important;
 					object-fit: cover;
 					display: block;
 					object-position: center;
@@ -109,6 +111,12 @@ const posts = (await getCollection('blog')).sort(
 					display: block;
 					overflow: hidden;
 				}
+
+				/* Defensive rules to guarantee no horizontal scrolling on small viewports */
+				html, body { overflow-x: hidden; }
+				main { box-sizing: border-box; max-width: 100%; }
+				ul { box-sizing: border-box; width: 100%; }
+				a { box-sizing: border-box; }
 
 				ul, main { box-sizing: border-box; }
 			}
