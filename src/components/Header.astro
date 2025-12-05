@@ -69,18 +69,32 @@ import HeaderLink from './HeaderLink.astro';
 
 	@media (max-width: 720px) {
 		nav {
-			padding: 0.5rem 0.75rem;
+			/* reduce horizontal padding and gaps to fit on one line */
+			padding: 0.35rem 0.5rem;
+			gap: 0.5rem;
+			flex-wrap: nowrap;
 		}
 		.internal-links {
-			order: 2;
-			width: 100%;
-			justify-content: flex-start;
-			gap: 0.6rem;
-			margin-top: 0.4rem;
+			order: 0;
+			width: auto;
+			justify-content: flex-end;
+			gap: 0.4rem;
+			margin-top: 0;
+			flex: 0 1 auto;
 		}
 		h2 {
-			order: 1;
-			width: 100%;
+			order: 0;
+			width: auto;
+			font-size: 0.9rem;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin-right: 0.5rem;
+		}
+		nav a {
+			padding: 0.35rem 0.35rem;
+			font-size: 0.9rem;
+			white-space: nowrap;
 		}
 	}
 </style>
