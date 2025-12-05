@@ -43,6 +43,22 @@ body {
 	font-size: 20px;
 	line-height: 1.7;
 }
+
+/* Unified image style used across the site */
+.image {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+	border-radius: 12px;
+	margin: 0 auto;
+}
+
+/* Modifier for images that must be cropped to a fixed height */
+.image--cover {
+	object-fit: cover;
+	object-position: center;
+}
 main {
 	width: 720px;
 	max-width: calc(100% - 2em);

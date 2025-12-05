@@ -21,20 +21,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 0;
 			}
 			.hero {
-				width: 100%;
 				display: block;
 			}
-			/* Notion-style shallow cover image */
+			/* Cover image constrained to content width (match .prose) */
 			.hero-image {
-				width: 100%;
+				max-width: 720px; /* match prose width */
+				margin: 0 auto;
 				overflow: hidden;
 				border-radius: 10px;
-				max-height: 320px;
 			}
-			.hero-image img {
+			.hero-image img.image {
 				display: block;
 				width: 100%;
-				height: 280px; /* shallow cover */
+				height: 280px; /* shallow Notion-style cover */
 				object-fit: cover;
 				object-position: center;
 				border-radius: 10px;
@@ -96,7 +95,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<article>
 				<section class="hero">
 					<div class="hero-image">
-						{heroImage && <Image width={1440} height={720} src={heroImage} alt="" />}
+						{heroImage && <Image class="image image--cover" width={1440} height={720} src={heroImage} alt="" />}
 					</div>
 					<div class="hero-header">
 						<h1 class="hero-title">{title}</h1>
