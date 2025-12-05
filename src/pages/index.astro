@@ -2,48 +2,103 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
----
+import { SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
 
+const posts = await getCollection('blog');
+
+// Sort newest first
+posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.pubDate)));
+---
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={"Sharing coffee, knowledge & culture"} />
+
+		<!-- Inter font for editorial typography on the index page -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+		<style>
+			/* Page-scoped minimal editorial styles using Inter */
+			.cc-hero {
+				text-align: center;
+				/* Reduced top padding to sit closer to header while keeping balanced whitespace */
+				padding: 3rem 1rem 2rem;
+				font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+				background: transparent;
+			}
+			.cc-title {
+				margin: 0 auto;
+				font-weight: 700;
+				font-size: clamp(2.25rem, 6vw, 3.25rem);
+				letter-spacing: -0.02em;
+				color: rgb(15,18,25);
+			}
+			.cc-sub {
+				margin-top: 0.75rem;
+				color: #6b7280;
+				font-weight: 300;
+				font-size: 1.05rem;
+			}
+
+			.posts {
+				max-width: 720px;
+				margin: 2.5rem auto 6rem;
+				padding: 0 1rem;
+				font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+			}
+			.post {
+				padding: 1.25rem 0;
+				border-top: 1px solid rgba(15,18,25,0.06);
+			}
+			.post:first-of-type { border-top: none; padding-top: 0; }
+			.post a {
+				color: rgb(15,18,25);
+				font-weight: 600;
+				text-decoration: none;
+				font-size: 1.05rem;
+				display: block;
+			}
+			.post a:hover { text-decoration: underline; }
+			.post p { margin: 0.5rem 0 0; color: #6b7280; font-size: 0.99rem; }
+
+			@media (max-width: 720px) {
+				/* Slightly tighter spacing on small screens to keep header & hero close */
+				.cc-hero { padding: 2rem 1rem 1.25rem; }
+				.posts { margin-top: 1.25rem; }
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
+
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<header class="cc-hero" role="banner">
+				<h1 class="cc-title">Coffee Community LB</h1>
+				<p class="cc-sub">Sharing coffee, knowledge &amp; culture</p>
+
+			</header>
+
+			<section class="posts" aria-labelledby="latest-posts">
+				<h2 id="latest-posts" style="position:absolute;left:-9999px;">Latest posts</h2>
+
+				{posts.length === 0 ? (
+					<p style="text-align:center;color:#6b7280;padding:2rem 1rem;">No posts yet.</p>
+				) : (
+					posts.slice(0, 5).map((post) => (
+						<article class="post">
+							<a href={`/blog/${post.id}`}>{post.data.title}</a>
+							{post.data.description ? <p>{post.data.description}</p> : null}
+						</article>
+					))
+				)
+				}
+			</section>
+
 		</main>
+
 		<Footer />
 	</body>
 </html>

@@ -1,0 +1,82 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${SITE_TITLE} — Categories`} description={`Article categories for ${SITE_TITLE}`} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+		<style>
+			/* Categories index: vertical list, minimal Japanese café aesthetic */
+			.page {
+				max-width: 720px;
+				margin: 2.5rem auto;
+				padding: 0 1rem;
+				font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+			}
+			.lead {
+				text-align: center;
+				color: rgba(var(--gray-dark), 0.85);
+				margin-bottom: 1.25rem;
+				font-weight: 600;
+				font-size: 1.1rem;
+			}
+			.categories-vertical {
+				display: flex;
+				flex-direction: column;
+				gap: 0.9rem;
+				align-items: flex-start;
+			}
+			.categories-vertical a {
+				color: rgba(var(--gray-dark), 0.65);
+				text-decoration: none;
+				padding: 0.3rem 0;
+				font-size: 1rem;
+				position: relative;
+			}
+			.categories-vertical a::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: -2px;
+				height: 1px;
+				width: 0;
+				background: rgba(var(--gray-dark), 0.45);
+				transition: width 160ms ease;
+			}
+			.categories-vertical a:hover::after {
+				width: 100%;
+			}
+
+			@media (max-width: 720px) {
+				.page { margin: 1.25rem auto; }
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+
+		<main class="page">
+			<h1 class="lead">Read By Category</h1>
+
+			<nav class="categories-vertical" aria-label="Categories list">
+				<a href="/category/brew-guides">Brew Guides</a>
+				<a href="/category/origin-notes">Origin Notes</a>
+				<a href="/category/coffee-theory">Coffee Theory</a>
+				<a href="/category/roasting">Roasting</a>
+				<a href="/category/equipment-reviews">Equipment Reviews</a>
+				<a href="/category/coffee-culture">Coffee Culture</a>
+				<a href="/category/tips-and-tricks">Tips &amp; Tricks</a>
+			</nav>
+		</main>
+
+		<Footer />
+	</body>
+</html>

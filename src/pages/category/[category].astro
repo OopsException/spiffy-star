@@ -4,6 +4,25 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
+// Generate static paths for each tag used in the `blog` collection
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const slugify = (s: string) =>
+    String(s)
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-_]/g, '')
+      .replace(/--+/g, '-');
+
+  const tags = new Set<string>();
+  posts.forEach((p) => {
+    (p.data.tags || []).forEach((t) => tags.add(slugify(t)));
+  });
+
+  return Array.from(tags).map((tag) => ({ params: { category: tag } }));
+}
+
 const { category } = Astro.params;
 
 // fallback for typescript

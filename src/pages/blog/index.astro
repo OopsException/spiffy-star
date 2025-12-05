@@ -16,73 +16,74 @@ const posts = (await getCollection('blog')).sort(
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<!-- Inter font for calm editorial typography -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 		<style>
+			/* Layout width consistent with site */
 			main {
-				width: 960px;
+				max-width: 720px;
+				margin: 0 auto;
+				padding: 1rem;
+				box-sizing: border-box;
 			}
+			/* Two-column grid (text-only cards) */
 			ul {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
+				gap: 1.5rem 2rem; /* vertical gap, horizontal gap */
+				list-style: none;
 				margin: 0;
 				padding: 0;
 			}
 			ul li {
 				width: calc(50% - 1rem);
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				padding: 1.25rem 0; /* increased vertical spacing inside each column */
+				box-sizing: border-box;
 			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
+			/* Keep links text-only and editorial */
 			ul li a {
 				display: block;
+				color: inherit;
+				text-decoration: none;
 			}
 			.title {
-				margin: 0;
+				margin: 0 0 0.4rem 0;
+				font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+				font-weight: 600;
+				font-size: 1.05rem;
 				color: rgb(var(--black));
-				line-height: 1;
+				line-height: 1.15;
 			}
 			.date {
 				margin: 0;
-				color: rgb(var(--gray));
+				color: rgba(var(--gray-dark), 0.6);
+				font-size: 0.95rem;
+				font-weight: 300;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+			/* Hover: minimal underline on title, subtle darker date - no animations */
+			ul li a:hover .title { text-decoration: underline; }
+			ul li a:hover .date { color: rgba(var(--gray-dark), 0.75); }
+			/* Style preview images: soft corners, no shadows, shallow height like editorial sites */
+			ul li img {
+				display: block;
+				width: 100%;
+				max-height: 180px;
+				object-fit: cover;
+				object-position: center;
+				border-radius: 10px;
+				margin-bottom: 0.6rem;
+				box-shadow: none;
 			}
 			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
+				ul { gap: 0.75rem; }
+				ul li { width: 100%; }
+				ul li { text-align: left; }
+				main { padding: 0.75rem; }
 			}
 		</style>
 	</head>
