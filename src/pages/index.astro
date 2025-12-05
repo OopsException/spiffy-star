@@ -32,9 +32,13 @@ posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.p
 			.cc-title {
 				margin: 0 auto;
 				font-weight: 700;
-				font-size: clamp(2.25rem, 6vw, 3.25rem);
+				/* Fluid size so title scales down on small screens without awkward wrapping */
+				font-size: clamp(1.8rem, 4vw, 2.5rem);
 				letter-spacing: -0.02em;
 				color: rgb(15,18,25);
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 			.cc-sub {
 				margin-top: 0.75rem;

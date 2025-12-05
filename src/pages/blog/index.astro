@@ -32,7 +32,7 @@ const posts = (await getCollection('blog')).sort(
 			ul {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 1.5rem 2rem; /* vertical gap, horizontal gap */
+				gap: 1.5rem 2rem;
 				list-style: none;
 				margin: 0;
 				padding: 0;
@@ -42,7 +42,7 @@ const posts = (await getCollection('blog')).sort(
 				display: flex;
 				flex-direction: column;
 				align-items: flex-start;
-				padding: 1.25rem 0; /* increased vertical spacing inside each column */
+				padding: 1.25rem 0;
 				box-sizing: border-box;
 			}
 			/* Keep links text-only and editorial */
@@ -84,6 +84,19 @@ const posts = (await getCollection('blog')).sort(
 				ul li { width: 100%; }
 				ul li { text-align: left; }
 				main { padding: 0.75rem; }
+
+				/* Mobile: make images scale to their column width and avoid cropping/overflow */
+				img.image.image--cover {
+					width: 100%;
+					max-width: 100%;
+					height: auto;
+					max-height: none;
+					object-fit: unset;
+				}
+
+				/* Ensure the list and main don't cause horizontal overflow */
+				ul, main { box-sizing: border-box; }
+				body { overflow-x: hidden; }
 			}
 		</style>
 	</head>
