@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const { category } = Astro.params;
+
+// fallback for typescript
+const categorySafe = category ?? '';
+
+const allPosts = await getCollection('blog');
+
+// Filter posts by matching tags
+const posts = allPosts.filter((p) =>
+  (p.data.tags || []).map((t) => t.toLowerCase()).includes(categorySafe.toLowerCase())
+);
+
+// Convert "brew-guides" → "Brew Guides"
+const categoryLabel = categorySafe
+  .replace(/-/g, ' ')
+  .replace(/\b\w/g, (c) => c.toUpperCase());
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={categoryLabel} description={`Posts under ${categoryLabel}`} />
+  </head>
+
+  <body>
+    <Header />
+
+    <main style="max-width:900px;margin:2rem auto;padding:0 1rem;">
+      <h1 style="text-align:center;font-size:2rem;margin-bottom:2rem;">
+        {categoryLabel}
+      </h1>
+
+      {posts.length === 0 ? (
+        <p>No posts yet in this category.</p>
+      ) : (
+        posts.map((post) => (
+          <div style="margin-bottom:2rem;">
+            <a href={`/blog/${post.slug}`} style="font-size:1.2rem;color:#111;text-decoration:none;">
+              {post.data.title}
+            </a>
+            <p style="color:#666;">{post.data.description}</p>
+          </div>
+        ))
+      )}
+    </main>
+
+    <Footer />
+  </body>
+</html>
