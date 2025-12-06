@@ -1,0 +1,55 @@
+<!-- TEMPLATE 1: Title + Key Quote -->
+<!-- Rules:
+  - Match project font family via generator (injects font-family).
+  - Colors, gradient, sizes come from /assets/ig/brand.json.
+  - Placeholders: {{TITLE}}, {{QUOTE}}, {{HANDLE}}, {{LOGO_PATH}},
+                 {{FONT_FAMILY}}, {{FG}}, {{MUTED}},
+                 {{PADDING}}, {{TITLE_SIZE}}, {{QUOTE_SIZE}}, {{WATERMARK_SIZE}},
+                 {{LOGO_WIDTH}}, {{BG_GRADIENT}}, {{BG_COLOR}}, {{CONTENT_W}}, {{RIGHT_X}}, {{BOTTOM_Y}}, {{RIGHT_X_LOGO}}, {{BOTTOM_Y_LOGO}}
+-->
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    {{BG_GRADIENT}}
+  </defs>
+  <rect width="100%" height="100%" fill="{{BG_COLOR}}" />
+
+  <!-- Title -->
+  <text
+    x="{{PADDING}}"
+    y="{{PADDING}}"
+    font-family="{{FONT_FAMILY}}"
+    font-size="{{TITLE_SIZE}}"
+    font-weight="800"
+    fill="{{FG}}"
+    dominant-baseline="hanging">
+    {{TITLE}}
+  </text>
+
+  <!-- Quote (center block) -->
+  <foreignObject x="{{PADDING}}" y="360" width="{{CONTENT_W}}" height="520">
+    <div xmlns="http://www.w3.org/1999/xhtml"
+         style="font-family: {{FONT_FAMILY}}; color: {{FG}}; font-size: {{QUOTE_SIZE}}px; line-height: 1.25; font-weight: 500; white-space: pre-wrap; overflow: hidden;">
+      “{{QUOTE}}”
+    </div>
+  </foreignObject>
+
+  <!-- Watermark handle -->
+  <text
+    x="{{RIGHT_X}}"
+    y="{{BOTTOM_Y}}"
+    text-anchor="end"
+    font-family="{{FONT_FAMILY}}"
+    font-size="{{WATERMARK_SIZE}}"
+    fill="{{MUTED}}"
+    opacity="0.9">
+    {{HANDLE}}
+  </text>
+
+  <!-- Logo bottom-right -->
+  <image href="{{LOGO_PATH}}"
+         x="{{RIGHT_X_LOGO}}"
+         y="{{BOTTOM_Y_LOGO}}"
+         width="{{LOGO_WIDTH}}"
+         height="{{LOGO_WIDTH}}"
+         preserveAspectRatio="xMaxYMax meet" />
+</svg>

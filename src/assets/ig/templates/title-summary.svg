@@ -1,0 +1,35 @@
+<!-- TEMPLATE 2: Title + Short Summary -->
+<!-- Placeholders: {{TITLE}}, {{SUMMARY}}, {{HANDLE}}, {{LOGO_PATH}},
+                   {{FONT_FAMILY}}, {{FG}}, {{MUTED}},
+                   {{PADDING}}, {{TITLE_SIZE}}, {{SUMMARY_SIZE}}, {{WATERMARK_SIZE}},
+                   {{LOGO_WIDTH}}, {{BG_GRADIENT}}, {{BG_COLOR}}, {{ACCENT}}, {{CONTENT_W}}, {{RIGHT_X}}, {{BOTTOM_Y}}, {{RIGHT_X_LOGO}}, {{BOTTOM_Y_LOGO}}, {{PADDING_PLUS_16}}, {{PADDING_PLUS_40}}, {{PADDING_PLUS_88}} -->
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    {{BG_GRADIENT}}
+  </defs>
+  <rect width="100%" height="100%" fill="{{BG_COLOR}}" />
+
+  <!-- Pill tag (optional) -->
+  <rect x="{{PADDING}}" y="{{PADDING}}" rx="14" ry="14" width="260" height="54" fill="{{ACCENT}}" opacity="0.15"/>
+  <text x="{{PADDING_PLUS_16}}" y="{{PADDING_PLUS_40}}" font-family="{{FONT_FAMILY}}" font-size="28" font-weight="600" fill="{{ACCENT}}">NEW ON THE BLOG</text>
+
+  <!-- Title -->
+  <foreignObject x="{{PADDING}}" y="{{PADDING_PLUS_88}}" width="{{CONTENT_W}}" height="220">
+    <div xmlns="http://www.w3.org/1999/xhtml"
+         style="font-family: {{FONT_FAMILY}}; color: {{FG}}; font-size: {{TITLE_SIZE}}px; line-height: 1.15; font-weight: 800; white-space: pre-wrap; overflow: hidden;">
+      {{TITLE}}
+    </div>
+  </foreignObject>
+
+  <!-- Summary -->
+  <foreignObject x="{{PADDING}}" y="460" width="{{CONTENT_W}}" height="420">
+    <div xmlns="http://www.w3.org/1999/xhtml"
+         style="font-family: {{FONT_FAMILY}}; color: {{FG}}; font-size: {{SUMMARY_SIZE}}px; line-height: 1.35; font-weight: 500; white-space: pre-wrap; overflow: hidden;">
+      {{SUMMARY}}
+    </div>
+  </foreignObject>
+
+  <!-- Watermark handle -->
+  <text x="{{RIGHT_X}}" y="{{BOTTOM_Y}}" text-anchor="end" font-family="{{FONT_FAMILY}}" font-size="{{WATERMARK_SIZE}}" fill="{{MUTED}}" opacity="0.9">{{HANDLE}}</text>
+  <image href="{{LOGO_PATH}}" x="{{RIGHT_X_LOGO}}" y="{{BOTTOM_Y_LOGO}}" width="{{LOGO_WIDTH}}" height="{{LOGO_WIDTH}}" preserveAspectRatio="xMaxYMax meet" />
+</svg>

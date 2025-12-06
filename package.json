@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:img": "echo 'Open: /.netlify/functions/og-image?t=title-summary&title=Hello&summary=This%20is%20a%20test'"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.12",

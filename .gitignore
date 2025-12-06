@@ -22,3 +22,5 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+# Ignore generated IG output
+src/assets/ig/output/
