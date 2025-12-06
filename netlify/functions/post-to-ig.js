@@ -11,6 +11,10 @@ const cors = {
 };
 
 export default async (req) => {
+  // Quick feature gate: disable IG autoposting by setting DISABLE_IG_AUTOPOST=1 or true
+  if (process.env.DISABLE_IG_AUTOPOST === '1' || process.env.DISABLE_IG_AUTOPOST === 'true') {
+    return new Response(JSON.stringify({ ok: false, disabled: true, reason: 'IG autopost disabled via DISABLE_IG_AUTOPOST' }), { status: 503, headers: { 'Content-Type': 'application/json' } });
+  }
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
   if (req.method !== "POST")
     return new Response(JSON.stringify({ error: "POST only" }), { status: 405, headers: { "Content-Type": "application/json", ...cors } });

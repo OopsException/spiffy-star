@@ -10,6 +10,10 @@ const TPL_DIR = path.join(ROOT, "assets/ig/templates");
 const escapeHtml = (s = "") => s.replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
 
 export default async (req) => {
+  // Quick feature gate: disable IG autoposting and image generation by setting DISABLE_IG_AUTOPOST=1 or true
+  if (process.env.DISABLE_IG_AUTOPOST === '1' || process.env.DISABLE_IG_AUTOPOST === 'true') {
+    return new Response(JSON.stringify({ ok: false, disabled: true, reason: 'IG autopost/image generation disabled via DISABLE_IG_AUTOPOST' }), { status: 503, headers: { 'Content-Type': 'application/json' } });
+  }
   try {
     const url = new URL(req.url);
     const t = url.searchParams.get("t") || "title-summary";

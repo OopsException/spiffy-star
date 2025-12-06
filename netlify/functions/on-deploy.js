@@ -2,6 +2,10 @@ import { fetch } from "undici";
 const SIGNING_SECRET = process.env.SIGNING_SECRET || "";
 
 export default async (req) => {
+  // Quick feature gate: disable IG autoposting by setting DISABLE_IG_AUTOPOST=1 or true
+  if (process.env.DISABLE_IG_AUTOPOST === '1' || process.env.DISABLE_IG_AUTOPOST === 'true') {
+    return new Response(JSON.stringify({ ok: false, disabled: true, reason: 'IG autopost disabled via DISABLE_IG_AUTOPOST' }), { status: 503, headers: { 'Content-Type': 'application/json' } });
+  }
   if (req.method !== "POST") return new Response("POST only", { status: 405 });
   let payload = {};
   try { payload = await req.json(); } catch {}
