@@ -1,0 +1,46 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background (uses brand BG_COLOR + optional noise texture) -->
+  <rect width="100%" height="100%" fill="{{BG_COLOR}}"/>
+  <image href="{{NOISE_TEXTURE_PATH}}" width="1080" height="1080" opacity="0.22"/>
+
+  <!-- “New on the Blog” tag -->
+    <rect x="{{PADDING}}" y="{{PADDING}}" width="240" height="52" rx="10" fill="{{ACCENT}}" opacity="0.32"/>
+    <text x="{{PADDING_PLUS_16}}" y="{{PADDING_PLUS_36}}"
+      font-family="{{FONT_FAMILY}}"
+      font-size="26"
+      fill="{{MUTED}}" font-weight="600">
+    NEW ON THE BLOG
+  </text>
+
+  <!-- Title -->
+  <foreignObject x="{{PADDING}}" y="{{PADDING_PLUS_88}}" width="{{CONTENT_W}}" height="240">
+        <div xmlns="http://www.w3.org/1999/xhtml"
+          style="font-family: {{FONT_FAMILY}}; font-size: {{TITLE_SIZE}}px; line-height: 1.2; font-weight: 700; color: {{FG}};">
+      {{TITLE}}
+    </div>
+  </foreignObject>
+
+  <!-- Summary -->
+  <foreignObject x="{{PADDING}}" y="420" width="{{CONTENT_W}}" height="460">
+        <div xmlns="http://www.w3.org/1999/xhtml"
+          style="font-family: {{FONT_FAMILY}}; font-size: {{SUMMARY_SIZE}}px; line-height: 1.38; font-weight: 400; color: {{FG}};">
+      {{SUMMARY}}
+    </div>
+  </foreignObject>
+
+  <!-- Watermark -->
+    <text x="{{RIGHT_X}}" y="{{BOTTOM_Y}}" text-anchor="end"
+      font-family="{{FONT_FAMILY}}"
+      font-size="{{WATERMARK_SIZE}}"
+      fill="{{MUTED}}">
+    {{HANDLE}}
+  </text>
+
+  <!-- Logo -->
+  <image href="{{LOGO_PATH}}"
+         x="{{RIGHT_X_LOGO}}"
+         y="{{BOTTOM_Y_LOGO}}"
+         width="{{LOGO_WIDTH}}"
+         height="{{LOGO_WIDTH}}"/>
+</svg>

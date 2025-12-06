@@ -1,0 +1,441 @@
+---
+import { SOL, ETH, BTC, MATIC, USDC_SOL, USDC_ETH, USDC_POLY } from '../consts';
+import qrSol from '../assets/Solana-qr-code.jpeg';
+import qrEth from '../assets/Eth-qr-code.jpeg';
+import qrBtc from '../assets/Bitcome-qr-cde.jpeg';
+import qrMatic from '../assets/Polygon-qr-code.jpeg';
+const DEFAULT_AMOUNT = "5";
+---
+
+<!--
+- Phantom (Solana): solana:<address>?amount=<DEFAULT_AMOUNT>
+- Solflare (Solana): https://solflare.com/send?address=<address>&amount=<DEFAULT_AMOUNT>
+- OKX Wallet (Solana): okxwallet://wallet/send?address=<address>&chain=SOL&amount=<DEFAULT_AMOUNT>
+- MetaMask (ETH/MATIC/USDC): https://metamask.app.link/send/<address>?value=<DEFAULT_AMOUNT>
+- Coinbase Wallet: https://go.cb-w.com/send?to=<address>&asset=<CHAIN>&amount=<DEFAULT_AMOUNT>
+- OKX Wallet (ETH): okxwallet://wallet/send?address=<address>&chain=ETH&amount=<DEFAULT_AMOUNT>
+- OKX Wallet (POLYGON): okxwallet://wallet/send?address=<address>&chain=POLYGON&amount=<DEFAULT_AMOUNT>
+- BlueWallet (Bitcoin): bitcoin:<address>?amount=<DEFAULT_AMOUNT>
+- Trust Wallet (Bitcoin): https://link.trustwallet.com/send?coin=BTC&address=<address>
+-->
+
+<section class="donate-container" aria-labelledby="donate-heading">
+
+  <div class="donate-list">
+
+    <div class="card" data-address={SOL} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>Solana (SOL)</h3>
+        <p class="addr">{SOL}</p>
+      </div>
+      <img class="qr" src={qrSol.src} alt="SOL QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`solana:${encodeURIComponent(SOL)}?amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Phantom (SOL)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Phantom</span>
+        </a>
+        <a class="wallet-btn" href={`https://solflare.com/send?address=${encodeURIComponent(SOL)}&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Solflare (SOL)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Solflare</span>
+        </a>
+        <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(SOL)}&chain=SOL&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to OKX Wallet (SOL)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">OKX</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card" data-address={ETH} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>Ethereum (ETH)</h3>
+        <p class="addr">{ETH}</p>
+      </div>
+      <img class="qr" src={qrEth.src} alt="ETH QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(ETH)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send to MetaMask (ETH)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">MetaMask</span>
+        </a>
+        <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(ETH)}&asset=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Coinbase Wallet (ETH)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Coinbase</span>
+        </a>
+        <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(ETH)}&chain=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to OKX Wallet (ETH)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">OKX</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card" data-address={BTC} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>Bitcoin (BTC)</h3>
+        <p class="addr">{BTC}</p>
+      </div>
+      <img class="qr" src={qrBtc.src} alt="BTC QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`bitcoin:${encodeURIComponent(BTC)}?amount=${DEFAULT_AMOUNT}`} aria-label={`Send to BlueWallet (BTC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">BlueWallet</span>
+        </a>
+        <a class="wallet-btn" href={`https://link.trustwallet.com/send?coin=BTC&address=${encodeURIComponent(BTC)}`} aria-label={`Send to Trust Wallet (BTC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Trust Wallet</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card" data-address={MATIC} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>Polygon (MATIC)</h3>
+        <p class="addr">{MATIC}</p>
+      </div>
+      <img class="qr" src={qrMatic.src} alt="MATIC QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(MATIC)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send to MetaMask (MATIC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">MetaMask</span>
+        </a>
+        <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(MATIC)}&asset=MATIC&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Coinbase Wallet (MATIC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Coinbase</span>
+        </a>
+        <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(MATIC)}&chain=POLYGON&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to OKX Wallet (MATIC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">OKX</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card card-usdc" data-address={USDC_SOL} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>USDC — Solana (SPL)</h3>
+        <p class="addr">{USDC_SOL}</p>
+        <div class="wallet-actions">
+          <a class="wallet-btn" href={`solana:${encodeURIComponent(USDC_SOL)}?amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Phantom (Solana)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Phantom</span>
+          </a>
+          <a class="wallet-btn" href={`https://solflare.com/send?address=${encodeURIComponent(USDC_SOL)}&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Solflare (Solana)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Solflare</span>
+          </a>
+          <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(USDC_SOL)}&chain=SOL&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to OKX Wallet (Solana)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">OKX</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-usdc" data-address={USDC_ETH} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>USDC — Ethereum (ERC-20)</h3>
+        <p class="addr">{USDC_ETH}</p>
+        <div class="wallet-actions">
+          <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(USDC_ETH)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to MetaMask (Ethereum)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">MetaMask</span>
+          </a>
+          <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(USDC_ETH)}&asset=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Coinbase Wallet (Ethereum)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Coinbase</span>
+          </a>
+          <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(USDC_ETH)}&chain=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to OKX Wallet (Ethereum)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">OKX</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-usdc" data-address={USDC_POLY} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>USDC — Polygon</h3>
+        <p class="addr">{USDC_POLY}</p>
+        <div class="wallet-actions">
+          <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(USDC_POLY)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to MetaMask (Polygon)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">MetaMask</span>
+          </a>
+          <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(USDC_POLY)}&asset=MATIC&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Coinbase Wallet (Polygon)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Coinbase</span>
+          </a>
+          <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(USDC_POLY)}&chain=POLYGON&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to OKX Wallet (Polygon)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">OKX</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Use global color variables (defined in src/styles/global.css) */
+
+  .donate-container{
+    padding: 36px 0;
+    color: var(--text-85);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  .donate-container > h2{
+    margin: 0 0 18px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-85);
+  }
+
+  .donate-list{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem; /* increased spacing for more breathing room */
+    align-items: start;
+  }
+
+  /* Desktop: two columns */
+  @media (min-width: 720px){
+    .donate-list{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .card{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    background: linear-gradient(180deg, var(--panel), var(--panel-alt));
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    position: relative;
+    cursor: pointer;
+    will-change: transform, box-shadow, border-color;
+  }
+
+  .card:hover{
+    transform: translateY(-6px);
+    box-shadow: var(--box-shadow);
+    border-color: rgba(var(--accent-rgb),0.12);
+  }
+
+  /* Click-to-copy feedback */
+  .card.copied{
+    border-color: var(--accent);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--box-shadow), 0 8px 24px rgba(var(--accent-rgb), 0.06);
+  }
+  .card.copied::after{
+    content: 'Copied!';
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: var(--accent);
+    color: var(--panel);
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    opacity: 1;
+    animation: copied-fade 1100ms forwards;
+    pointer-events: none;
+  }
+  @keyframes copied-fade{
+    0% { opacity: 1; transform: translateY(0); }
+    70% { opacity: 1; transform: translateY(-6px); }
+    100% { opacity: 0; transform: translateY(-12px); }
+  }
+
+  .card-info{
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .card h3{
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-85);
+  }
+
+  .addr{
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", "Courier New", monospace;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    word-break: break-all;
+    background: transparent;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+  .addr.inline{ display: inline; padding: 0; border-radius: 0; }
+
+  /* Wallet action buttons under each card */
+  .wallet-actions{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    grid-column: 1 / -1;
+  }
+  .wallet-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  }
+  .wallet-btn.wallet-disabled{
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: default;
+    filter: grayscale(0.2);
+    border-color: var(--border);
+  }
+  .wallet-btn:hover,
+  .wallet-btn:focus{
+    border-color: var(--accent);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 8px rgba(var(--accent-rgb),0.06);
+    transform: translateY(-2px);
+  }
+  .wallet-btn:active{ transform: translateY(0); }
+  .wallet-name{ color: var(--text); }
+
+  @media (min-width: 720px){
+    .wallet-actions{ display: flex; gap: 0.75rem; }
+    .wallet-actions .wallet-btn{ flex: 1 1 0; }
+  }
+
+  .qr{
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* USDC card spans full width on larger screens for clarity */
+  .card-usdc{ grid-column: 1 / -1; }
+  @media (min-width:720px){ .card-usdc{ grid-column: span 2; } }
+
+  /* Small tweaks for mobile */
+  @media (max-width: 540px){
+    .card{ padding: 12px; gap: 12px; }
+    .donate-list{ gap: 1.25rem; }
+    .qr{ width: 140px; height: 140px; }
+  }
+
+  /* reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce){
+    .card, .card:hover{ transform: none; transition: none; }
+  }
+
+  /* small accessibility focus style */
+  .card:focus{
+    outline: 2px solid rgba(var(--accent-rgb),0.18);
+    outline-offset: 2px;
+  }
+
+</style>
+
+<script>
+// @ts-nocheck
+// Click-to-copy donation addresses with visual feedback
+;(function(){
+  const list = document.querySelector('.donate-list');
+  if(!list) return;
+
+  // Desktop fallback behavior:
+  // - On desktop, deep-link schemes (solana:, okxwallet:, bitcoin:, metamask.app.link) often
+  //   have no handler. Replace with a web wallet page when available, otherwise grey-out.
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent || '');
+  const FALLBACK_AMOUNT = '${DEFAULT_AMOUNT}';
+  if(!isMobile){
+    // For each card, try to detect whether Solflare web send page is available for the address.
+    // If Solflare returns an error (404/other) or fetch fails, disable both Phantom and Solflare buttons
+    // for that card to avoid leading desktop users to a 404.
+    document.querySelectorAll('.card').forEach((card)=>{
+      const address = card.dataset && card.dataset.address ? card.dataset.address : '';
+      if(!address) return;
+
+      const solflareUrl = `https://solflare.com/send?address=${encodeURIComponent(address)}&amount=${FALLBACK_AMOUNT}`;
+
+      // Best-effort check: try fetching the Solflare URL. If it fails or returns non-OK, disable Phantom+Solflare.
+      fetch(solflareUrl, { method: 'GET', mode: 'cors' }).then((res)=>{
+        if(!res.ok){
+          // disable both Phantom and Solflare anchors inside this card
+          const phantom = card.querySelector('a[aria-label*="Phantom"]');
+          const solflare = card.querySelector('a[aria-label*="Solflare"]');
+          [phantom, solflare].forEach((a)=>{
+            if(!a) return;
+            a.classList.add('wallet-disabled');
+            a.setAttribute('aria-disabled','true');
+            a.removeAttribute('href');
+            a.setAttribute('tabindex','-1');
+          });
+        }
+      }).catch(()=>{
+        // Fetch failed (CORS or network) — conservative: disable Phantom + Solflare to avoid 404s
+        const phantom = card.querySelector('a[aria-label*="Phantom"]');
+        const solflare = card.querySelector('a[aria-label*="Solflare"]');
+        [phantom, solflare].forEach((a)=>{
+          if(!a) return;
+          a.classList.add('wallet-disabled');
+          a.setAttribute('aria-disabled','true');
+          a.removeAttribute('href');
+          a.setAttribute('tabindex','-1');
+        });
+      });
+
+      // For other schemes in this card, disable if no reliable desktop fallback
+      card.querySelectorAll('.wallet-btn').forEach((a)=>{
+        const raw = a.getAttribute('href') || '';
+        if(raw.startsWith('https://') || raw.startsWith('http://')) return; // keep web links
+        if(raw.startsWith('bitcoin:') || raw.startsWith('okxwallet:') || raw.includes('metamask.app.link')){
+          a.classList.add('wallet-disabled');
+          a.setAttribute('aria-disabled','true');
+          a.removeAttribute('href');
+          a.setAttribute('tabindex','-1');
+        }
+      });
+    });
+  }
+
+  /** @param {HTMLElement} card */
+  function activateCard(card){
+    if(!card) return;
+    const address = card.dataset.address;
+    if(!address) return;
+    // copy
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(address).catch(()=>{});
+    } else {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = address;
+      ta.setAttribute('readonly','');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      ta.remove();
+    }
+
+    // visual feedback
+    card.classList.add('copied');
+    setTimeout(()=> card.classList.remove('copied'), 1100);
+  }
+
+  list.addEventListener('click', (ev)=>{
+    const e = /** @type {Event} */ (ev);
+    const tgt = e.target;
+    if(!(tgt instanceof Element)) return;
+    const card = tgt.closest('.card');
+    if(!(card instanceof HTMLElement)) return;
+    activateCard(card);
+  });
+
+  // keyboard support: Enter / Space to copy
+  list.addEventListener('keydown', (ev)=>{
+    const e = /** @type {KeyboardEvent} */ (ev);
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const tgt = e.target;
+    if(!(tgt instanceof Element)) return;
+    const card = tgt.closest('.card');
+    if(!(card instanceof HTMLElement)) return;
+    e.preventDefault();
+    activateCard(card);
+  });
+})();
+</script>

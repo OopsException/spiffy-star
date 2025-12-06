@@ -5,10 +5,11 @@ import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('blog');
-
-// Sort newest first
-posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.pubDate)));
+const posts = (await getCollection('blog'))
+	// Exclude drafts so links on the home page don't lead to 404s
+	.filter((p) => !((p.data as any).draft))
+	// Sort newest first
+	.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.pubDate)));
 ---
 <!doctype html>
 <html lang="en">
@@ -35,14 +36,14 @@ posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.p
 				/* Fluid size so title scales down on small screens without awkward wrapping */
 				font-size: clamp(1.8rem, 4vw, 2.5rem);
 				letter-spacing: -0.02em;
-				color: rgb(15,18,25);
+				color: var(--text-85);
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
 			.cc-sub {
 				margin-top: 0.75rem;
-				color: #6b7280;
+				color: var(--text-muted);
 				font-weight: 300;
 				font-size: 1.05rem;
 			}
@@ -55,18 +56,18 @@ posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.p
 			}
 			.post {
 				padding: 1.25rem 0;
-				border-top: 1px solid rgba(15,18,25,0.06);
+				border-top: 1px solid var(--border);
 			}
 			.post:first-of-type { border-top: none; padding-top: 0; }
 			.post a {
-				color: rgb(15,18,25);
+				color: var(--text-85);
 				font-weight: 600;
 				text-decoration: none;
 				font-size: 1.05rem;
 				display: block;
 			}
 			.post a:hover { text-decoration: underline; }
-			.post p { margin: 0.5rem 0 0; color: #6b7280; font-size: 0.99rem; }
+			.post p { margin: 0.5rem 0 0; color: var(--text-muted); font-size: 0.99rem; }
 
 			@media (max-width: 720px) {
 				/* Slightly tighter spacing on small screens to keep header & hero close */
@@ -89,7 +90,7 @@ posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.p
 				<h2 id="latest-posts" style="position:absolute;left:-9999px;">Latest posts</h2>
 
 				{posts.length === 0 ? (
-					<p style="text-align:center;color:#6b7280;padding:2rem 1rem;">No posts yet.</p>
+					<p style="text-align:center;color:var(--text-muted);padding:2rem 1rem;">No posts yet.</p>
 				) : (
 					posts.slice(0, 5).map((post) => (
 						<article class="post">

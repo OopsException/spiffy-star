@@ -1,62 +1,109 @@
-# Astro Starter Kit: Blog
+# **Spiffy Star**
+
+**Spiffy Star** is the personal website and blog of **Bahaa**. A place to publish thoughts, projects, links, and anything worth documenting.
+The site is fully developed and maintained by **his brother**, who handles the design, structure, and deployment.
+
+---
+
+## ✨ Overview
+
+Spiffy Star is built to be:
+
+* **Fast** and lightweight
+* **Minimal** in design, focused on content
+* **Easy to maintain**, publish, and extend
+* **SEO-friendly** with clean metadata
+* **Fully static** for reliable deployment
+
+---
+
+## 🛠 Tech Stack
+
+* **Astro** - main framework
+* **TypeScript**
+* **Markdown & MDX** for all posts
+* **Custom CSS** for styling
+* Deployable on **Netlify**
+
+---
+
+## 🚀 Development
+
+Install dependencies:
 
 ```sh
-npm create astro@latest -- --template blog
+npm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Run in development:
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+```sh
+npm run dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Build:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```sh
+npm run build
+```
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+Preview production:
 
-Any static assets, like images, can be placed in the `public/` directory.
+```sh
+npm run preview
+```
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## 📁 Structure
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```
+/
+├─ public/          # Static assets
+├─ src/
+│  ├─ components/   # UI components
+│  ├─ content/      # Blog posts (MD/MDX)
+│  ├─ layouts/      # Page + post layouts
+│  ├─ pages/        # Site pages
+│  └─ styles/       # Styling
+└─ package.json
+```
 
-## 👀 Want to learn more?
+---
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## ✏️ Creating Content
 
-## Credit
+Add posts inside:
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+```
+src/content/
+```
+
+A sample post:
+
+```md
+---
+title: "Post Title"
+description: "Short description"
+publishDate: 2025-01-01
+---
+
+Your content goes here.
+```
+
+---
+
+## 📦 Deployment
+
+The site builds into static files (`dist/`) and can be deployed anywhere:
+
+* Vercel
+* Netlify
+* GitHub Pages
+* Cloudflare Pages
+
+Just build and upload:
+
+```sh
+npm run build
+```

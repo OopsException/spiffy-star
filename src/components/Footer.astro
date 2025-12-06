@@ -1,5 +1,6 @@
 ---
 const today = new Date();
+import MinimalRotatingB from './MinimalRotatingB.astro';
 ---
 
 <footer>
@@ -19,16 +20,17 @@ const today = new Date();
  				</svg>
  			</a>
  		</div>
- 		<div class="watermark">&copy; {today.getFullYear()} Massoud</div>
+ 		<div class="watermark">&copy; {today.getFullYear()} Massoud. All rights reserved.</div>
  	</div>
 </footer>
+<MinimalRotatingB />
 <style>
 	footer {
 		padding: .75rem 1rem .75rem 1rem;
-		background: white;
-		color: rgba(var(--gray-dark), 0.65);
+		background: var(--panel);
+		color: var(--text-65);
 		text-align: center;
-		border-top: 1px solid rgb(var(--gray-light));
+		border-top: 1px solid var(--border);
 		font-family: Inter, "Atkinson", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 	}
 	.footer-inner {
@@ -39,7 +41,7 @@ const today = new Date();
 	}
 	.watermark {
 		font-size: 0.95rem;
-		color: rgba(var(--gray-dark), 0.6);
+		color: var(--text-65);
 		margin-bottom: 0rem;
 		white-space: nowrap;
 	}
@@ -50,7 +52,7 @@ const today = new Date();
 		align-items: center;
 	}
 	.footer-links a {
-		color: rgba(var(--gray-dark), 0.65);
+		color: var(--text-65);
 		text-decoration: none;
 		display: inline-flex;
 		align-items: center;

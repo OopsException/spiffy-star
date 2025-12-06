@@ -1,5 +1,5 @@
 ---
-title: 'First post'
+title: 'First post ☕️'
 description: 'Test post'
 pubDate: 'Dec 06 2025'
 heroImage: '../../assets/coffee-illustration-different-coffee-sizes-and-typesjpg.jpg'

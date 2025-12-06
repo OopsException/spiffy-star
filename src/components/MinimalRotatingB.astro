@@ -1,0 +1,67 @@
+---
+---
+<!-- Minimal floating 3D rotating 'B' (Y-axis) -->
+<a href="/donate" class="mr-badge" role="img" aria-label="Rotating B" title="Brand">
+  <div class="mr-badge__card" aria-hidden="true">
+    <div class="mr-badge__face mr-badge__face--front">B</div>
+    <div class="mr-badge__face mr-badge__face--back">B</div>
+  </div>
+</a>
+
+<style>
+/* MinimalScoped: only the letter visible. No boxes, borders, shadows, outlines, or extras. */
+.mr-badge{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 56px;
+  height: 56px;
+  z-index: 99999;
+  perspective: 700px; /* real 3D perspective */
+  cursor: pointer;
+}
+
+.mr-badge__card{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform-style: preserve-3d;
+  transform-origin:50% 50%;
+  animation: mr-rotateY 3s linear infinite; /* rotate around Y axis */
+}
+
+.mr-badge__face{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform:none;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight:800;
+  font-size:40px; /* sized to be visible inside 56px */
+  line-height:1;
+  color: currentColor; /* inherits color */
+  background: transparent; /* explicitly none */
+  border: none;
+  box-shadow: none;
+  outline: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+.mr-badge__face--back{ transform: rotateY(180deg); }
+
+@keyframes mr-rotateY{
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .mr-badge__card{ animation: none !important; transform: rotateX(0deg) !important; }
+}
+</style>

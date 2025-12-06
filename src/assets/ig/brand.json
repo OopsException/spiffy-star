@@ -1,0 +1,43 @@
+{
+  "handle": "@your_handle_here",
+  "logoPath": "/assets/ig/logo/logo-b.svg",
+  "noiseTexturePath": "/assets/ig/noise.svg",
+  "fontFamily": "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif",
+  "useGradient": true,
+  "background": {
+    "type": "gradient",
+    "from": "#0f172a",
+    "to": "#111827"
+  },
+  "colors": {
+    "bg": "#0f172a",
+    "fg": "#f8fafc",
+    "muted": "#a3a3a3",
+    "accent": "#22d3ee"
+  },
+  "bgColor": "#0f172a",
+  "typography": {
+    "titleWeight": 800,
+    "bodyWeight": 500,
+    "titleSize": 64,
+    "quoteSize": 56,
+    "summarySize": 44,
+    "paragraphSize": 42,
+    "watermarkSize": 28
+  },
+  "sizes": {
+    "title": 64,
+    "quote": 56,
+    "summary": 44,
+    "paragraph": 42,
+    "watermark": 28
+  },
+  "layout": {
+    "padding": 96,
+    "paddingPlus16": 112,
+    "paddingPlus36": 132,
+    "paddingPlus40": 136,
+    "paddingPlus88": 184,
+    "logoWidth": 84
+  }
+}
