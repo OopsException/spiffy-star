@@ -156,7 +156,7 @@
   /** @param {string} email */
   async function trySubscribe(email) {
     const payload = { email };
-    const urls = ['/api/subscribe', '/.netlify/functions/subscribe'];
+    const urls = ['/.netlify/functions/subscribe'];
     let lastError = 'Subscription failed';
 
     for (const url of urls) {

@@ -1,22 +1,41 @@
 const { getStore } = require('@netlify/blobs');
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
+  // Basic CORS support for browser POSTs
+  const cors = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  };
+
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 204, headers: cors };
+  }
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...cors, 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: 'Method Not Allowed. Use POST.' })
     };
   }
 
-  let body;
+  // Accept JSON and form-encoded submissions
+  let body = {};
+  const contentType = (event.headers['content-type'] || event.headers['Content-Type'] || '').toLowerCase();
   try {
-    body = event.body ? JSON.parse(event.body) : {};
+    if (event.body) {
+      if (contentType.includes('application/json')) {
+        body = JSON.parse(event.body);
+      } else if (contentType.includes('application/x-www-form-urlencoded')) {
+        body = Object.fromEntries(new URLSearchParams(event.body));
+      }
+    }
   } catch (err) {
     return {
       statusCode: 400,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Invalid JSON body' })
+      headers: { ...cors, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Invalid request body' })
     };
   }
 
@@ -27,7 +46,7 @@ exports.handler = async (event, context) => {
   if (!email || !emailRegex.test(email)) {
     return {
       statusCode: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...cors, 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: 'Invalid email address' })
     };
   }
@@ -43,7 +62,7 @@ exports.handler = async (event, context) => {
     if (exists) {
       return {
         statusCode: 409,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { ...cors, 'Content-Type': 'application/json' },
         body: JSON.stringify({ error: 'Email already subscribed' })
       };
     }
@@ -53,14 +72,14 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...cors, 'Content-Type': 'application/json' },
       body: JSON.stringify({ success: true })
     };
   } catch (err) {
     console.error('subscribe function error:', err);
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...cors, 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: 'Server error while saving subscriber' })
     };
   }
