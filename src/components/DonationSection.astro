@@ -4,10 +4,22 @@ import qrSol from '../assets/Solana-qr-code.jpeg';
 import qrEth from '../assets/Eth-qr-code.jpeg';
 import qrBtc from '../assets/Bitcome-qr-cde.jpeg';
 import qrMatic from '../assets/Polygon-qr-code.jpeg';
+const DEFAULT_AMOUNT = "5";
 ---
 
+<!--
+- Phantom (Solana): solana:<address>?amount=<DEFAULT_AMOUNT>
+- Solflare (Solana): https://solflare.com/send?address=<address>&amount=<DEFAULT_AMOUNT>
+- OKX Wallet (Solana): okxwallet://wallet/send?address=<address>&chain=SOL&amount=<DEFAULT_AMOUNT>
+- MetaMask (ETH/MATIC/USDC): https://metamask.app.link/send/<address>?value=<DEFAULT_AMOUNT>
+- Coinbase Wallet: https://go.cb-w.com/send?to=<address>&asset=<CHAIN>&amount=<DEFAULT_AMOUNT>
+- OKX Wallet (ETH): okxwallet://wallet/send?address=<address>&chain=ETH&amount=<DEFAULT_AMOUNT>
+- OKX Wallet (POLYGON): okxwallet://wallet/send?address=<address>&chain=POLYGON&amount=<DEFAULT_AMOUNT>
+- BlueWallet (Bitcoin): bitcoin:<address>?amount=<DEFAULT_AMOUNT>
+- Trust Wallet (Bitcoin): https://link.trustwallet.com/send?coin=BTC&address=<address>
+-->
+
 <section class="donate-container" aria-labelledby="donate-heading">
-  <h2 id="donate-heading">Support the Project — Crypto Donations</h2>
 
   <div class="donate-list">
 
@@ -17,6 +29,17 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
         <p class="addr">{SOL}</p>
       </div>
       <img class="qr" src={qrSol.src} alt="SOL QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`solana:${encodeURIComponent(SOL)}?amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Phantom (SOL)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Phantom</span>
+        </a>
+        <a class="wallet-btn" href={`https://solflare.com/send?address=${encodeURIComponent(SOL)}&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Solflare (SOL)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Solflare</span>
+        </a>
+        <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(SOL)}&chain=SOL&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to OKX Wallet (SOL)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">OKX</span>
+        </a>
+      </div>
     </div>
 
     <div class="card" data-address={ETH} role="button" tabindex="0">
@@ -25,6 +48,17 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
         <p class="addr">{ETH}</p>
       </div>
       <img class="qr" src={qrEth.src} alt="ETH QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(ETH)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send to MetaMask (ETH)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">MetaMask</span>
+        </a>
+        <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(ETH)}&asset=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Coinbase Wallet (ETH)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Coinbase</span>
+        </a>
+        <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(ETH)}&chain=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to OKX Wallet (ETH)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">OKX</span>
+        </a>
+      </div>
     </div>
 
     <div class="card" data-address={BTC} role="button" tabindex="0">
@@ -33,6 +67,14 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
         <p class="addr">{BTC}</p>
       </div>
       <img class="qr" src={qrBtc.src} alt="BTC QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`bitcoin:${encodeURIComponent(BTC)}?amount=${DEFAULT_AMOUNT}`} aria-label={`Send to BlueWallet (BTC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">BlueWallet</span>
+        </a>
+        <a class="wallet-btn" href={`https://link.trustwallet.com/send?coin=BTC&address=${encodeURIComponent(BTC)}`} aria-label={`Send to Trust Wallet (BTC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Trust Wallet</span>
+        </a>
+      </div>
     </div>
 
     <div class="card" data-address={MATIC} role="button" tabindex="0">
@@ -41,26 +83,70 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
         <p class="addr">{MATIC}</p>
       </div>
       <img class="qr" src={qrMatic.src} alt="MATIC QR" width="160" height="160" />
+      <div class="wallet-actions">
+        <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(MATIC)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send to MetaMask (MATIC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">MetaMask</span>
+        </a>
+        <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(MATIC)}&asset=MATIC&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to Coinbase Wallet (MATIC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">Coinbase</span>
+        </a>
+        <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(MATIC)}&chain=POLYGON&amount=${DEFAULT_AMOUNT}`} aria-label={`Send to OKX Wallet (MATIC)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+          <span class="wallet-name">OKX</span>
+        </a>
+      </div>
     </div>
 
-    <div class="card" data-address={USDC_SOL} role="button" tabindex="0">
+    <div class="card card-usdc" data-address={USDC_SOL} role="button" tabindex="0">
       <div class="card-info">
         <h3>USDC — Solana (SPL)</h3>
         <p class="addr">{USDC_SOL}</p>
+        <div class="wallet-actions">
+          <a class="wallet-btn" href={`solana:${encodeURIComponent(USDC_SOL)}?amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Phantom (Solana)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Phantom</span>
+          </a>
+          <a class="wallet-btn" href={`https://solflare.com/send?address=${encodeURIComponent(USDC_SOL)}&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Solflare (Solana)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Solflare</span>
+          </a>
+          <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(USDC_SOL)}&chain=SOL&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to OKX Wallet (Solana)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">OKX</span>
+          </a>
+        </div>
       </div>
     </div>
 
-    <div class="card" data-address={USDC_ETH} role="button" tabindex="0">
+    <div class="card card-usdc" data-address={USDC_ETH} role="button" tabindex="0">
       <div class="card-info">
         <h3>USDC — Ethereum (ERC-20)</h3>
         <p class="addr">{USDC_ETH}</p>
+        <div class="wallet-actions">
+          <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(USDC_ETH)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to MetaMask (Ethereum)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">MetaMask</span>
+          </a>
+          <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(USDC_ETH)}&asset=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Coinbase Wallet (Ethereum)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Coinbase</span>
+          </a>
+          <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(USDC_ETH)}&chain=ETH&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to OKX Wallet (Ethereum)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">OKX</span>
+          </a>
+        </div>
       </div>
     </div>
 
-    <div class="card" data-address={USDC_POLY} role="button" tabindex="0">
+    <div class="card card-usdc" data-address={USDC_POLY} role="button" tabindex="0">
       <div class="card-info">
         <h3>USDC — Polygon</h3>
         <p class="addr">{USDC_POLY}</p>
+        <div class="wallet-actions">
+          <a class="wallet-btn" href={`https://metamask.app.link/send/${encodeURIComponent(USDC_POLY)}?value=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to MetaMask (Polygon)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">MetaMask</span>
+          </a>
+          <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${encodeURIComponent(USDC_POLY)}&asset=MATIC&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to Coinbase Wallet (Polygon)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">Coinbase</span>
+          </a>
+          <a class="wallet-btn" href={`okxwallet://wallet/send?address=${encodeURIComponent(USDC_POLY)}&chain=POLYGON&amount=${DEFAULT_AMOUNT}`} aria-label={`Send USDC to OKX Wallet (Polygon)`} onclick="event.stopPropagation()" onkeydown="event.stopPropagation()">
+            <span class="wallet-name">OKX</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -95,9 +181,10 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
   }
 
   .card{
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto;
     gap: 1rem;
+    align-items: center;
     background: linear-gradient(180deg, var(--panel), var(--panel-alt));
     backdrop-filter: blur(4px);
     border-radius: 12px;
@@ -163,6 +250,43 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
     border-radius: 8px;
   }
   .addr.inline{ display: inline; padding: 0; border-radius: 0; }
+
+  /* Wallet action buttons under each card */
+  .wallet-actions{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    grid-column: 1 / -1;
+  }
+  .wallet-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  }
+  .wallet-btn:hover,
+  .wallet-btn:focus{
+    border-color: var(--accent);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 8px rgba(var(--accent-rgb),0.06);
+    transform: translateY(-2px);
+  }
+  .wallet-btn:active{ transform: translateY(0); }
+  .wallet-name{ color: var(--text); }
+
+  @media (min-width: 720px){
+    .wallet-actions{ display: flex; gap: 0.75rem; }
+    .wallet-actions .wallet-btn{ flex: 1 1 0; }
+  }
 
   .qr{
     width: 160px;
