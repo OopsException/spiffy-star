@@ -7,7 +7,7 @@ const ROOT = process.cwd();
 const BRAND_PATH = path.join(ROOT, "assets/ig/brand.json");
 const TPL_DIR = path.join(ROOT, "assets/ig/templates");
 
-const escapeHtml = (s = "") => s.replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+const escapeHtml = (s = "") => s.replace(/[&<>'"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[m]));
 
 export default async (req) => {
   // Quick feature gate: disable IG autoposting and image generation by setting DISABLE_IG_AUTOPOST=1 or true
