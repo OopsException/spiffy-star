@@ -1,5 +1,4 @@
-const fs = require('fs').promises;
-const path = require('path');
+const { getStore } = require('@netlify/blobs');
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
@@ -33,21 +32,14 @@ exports.handler = async (event, context) => {
     };
   }
 
-  const filePath = path.join(process.cwd(), 'src', 'data', 'subscribers.json');
-
   try {
-    let subscribers = [];
-    try {
-      const raw = await fs.readFile(filePath, 'utf8');
-      subscribers = JSON.parse(raw);
-      if (!Array.isArray(subscribers)) subscribers = [];
-    } catch (err) {
-      if (err.code !== 'ENOENT') throw err;
-      // If file doesn't exist, start with empty array
-      subscribers = [];
-    }
+    const store = getStore('newsletter');
+    const key = 'subscribers.json';
 
-    const exists = subscribers.some(s => String(s).toLowerCase() === email);
+    let subscribers = await store.get(key, { type: 'json' });
+    if (!Array.isArray(subscribers)) subscribers = [];
+
+    const exists = subscribers.some((s) => String(s).toLowerCase() === email);
     if (exists) {
       return {
         statusCode: 409,
@@ -57,11 +49,7 @@ exports.handler = async (event, context) => {
     }
 
     subscribers.push(email);
-
-    // Write file back. Netlify functions have a writable /tmp during runtime,
-    // but writing to the repo path can work during local/testing or build-time.
-    // This uses the repo path as requested.
-    await fs.writeFile(filePath, JSON.stringify(subscribers, null, 2), 'utf8');
+    await store.set(key, JSON.stringify(subscribers));
 
     return {
       statusCode: 200,
