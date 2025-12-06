@@ -31,7 +31,7 @@ export default async (req) => {
     const BOTTOM_Y_LOGO = SIZE - PADDING - LOGO_WIDTH;
 
     // Prefer project's primary sans if available (fallback provided)
-    const FONT_FAMILY = "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif";
+    const FONT_FAMILY = brand.fontFamily || "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif";
     const FG = brand.colors?.fg ?? "#f8fafc";
     const MUTED = brand.colors?.muted ?? "#a3a3a3";
     const ACCENT = brand.colors?.accent ?? "#22d3ee";
@@ -65,9 +65,11 @@ export default async (req) => {
       "{{ACCENT}}": ACCENT,
       "{{PADDING}}": String(PADDING),
       "{{PADDING_PLUS_16}}": String(PADDING + 16),
+      "{{PADDING_PLUS_36}}": String(PADDING + 36),
       "{{PADDING_PLUS_40}}": String(PADDING + 40),
       "{{PADDING_PLUS_88}}": String(PADDING + 88),
       "{{CONTENT_W}}": String(CONTENT_W),
+      "{{NOISE_TEXTURE_PATH}}": escapeHtml(brand.noiseTexturePath || '/assets/ig/noise.png'),
       "{{RIGHT_X}}": String(RIGHT_X),
       "{{BOTTOM_Y}}": String(BOTTOM_Y),
       "{{RIGHT_X_LOGO}}": String(RIGHT_X_LOGO),
