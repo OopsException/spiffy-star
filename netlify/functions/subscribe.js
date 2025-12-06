@@ -52,7 +52,10 @@ exports.handler = async (event) => {
   }
 
   try {
-    const store = getStore('newsletter');
+    const store = getStore('newsletter', {
+      siteID: process.env.NETLIFY_SITE_ID || process.env.NETLIFY_BLOBS_SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_TOKEN
+    });
     const key = 'subscribers.json';
 
     let subscribers = await store.get(key, { type: 'json' });
