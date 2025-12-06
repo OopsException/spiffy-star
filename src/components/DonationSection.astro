@@ -274,6 +274,13 @@ const DEFAULT_AMOUNT = "5";
     font-size: 0.95rem;
     transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
   }
+  .wallet-btn.wallet-disabled{
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: default;
+    filter: grayscale(0.2);
+    border-color: var(--border);
+  }
   .wallet-btn:hover,
   .wallet-btn:focus{
     border-color: var(--accent);
@@ -327,6 +334,62 @@ const DEFAULT_AMOUNT = "5";
 ;(function(){
   const list = document.querySelector('.donate-list');
   if(!list) return;
+
+  // Desktop fallback behavior:
+  // - On desktop, deep-link schemes (solana:, okxwallet:, bitcoin:, metamask.app.link) often
+  //   have no handler. Replace with a web wallet page when available, otherwise grey-out.
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent || '');
+  const FALLBACK_AMOUNT = '${DEFAULT_AMOUNT}';
+  if(!isMobile){
+    // For each card, try to detect whether Solflare web send page is available for the address.
+    // If Solflare returns an error (404/other) or fetch fails, disable both Phantom and Solflare buttons
+    // for that card to avoid leading desktop users to a 404.
+    document.querySelectorAll('.card').forEach((card)=>{
+      const address = card.dataset && card.dataset.address ? card.dataset.address : '';
+      if(!address) return;
+
+      const solflareUrl = `https://solflare.com/send?address=${encodeURIComponent(address)}&amount=${FALLBACK_AMOUNT}`;
+
+      // Best-effort check: try fetching the Solflare URL. If it fails or returns non-OK, disable Phantom+Solflare.
+      fetch(solflareUrl, { method: 'GET', mode: 'cors' }).then((res)=>{
+        if(!res.ok){
+          // disable both Phantom and Solflare anchors inside this card
+          const phantom = card.querySelector('a[aria-label*="Phantom"]');
+          const solflare = card.querySelector('a[aria-label*="Solflare"]');
+          [phantom, solflare].forEach((a)=>{
+            if(!a) return;
+            a.classList.add('wallet-disabled');
+            a.setAttribute('aria-disabled','true');
+            a.removeAttribute('href');
+            a.setAttribute('tabindex','-1');
+          });
+        }
+      }).catch(()=>{
+        // Fetch failed (CORS or network) — conservative: disable Phantom + Solflare to avoid 404s
+        const phantom = card.querySelector('a[aria-label*="Phantom"]');
+        const solflare = card.querySelector('a[aria-label*="Solflare"]');
+        [phantom, solflare].forEach((a)=>{
+          if(!a) return;
+          a.classList.add('wallet-disabled');
+          a.setAttribute('aria-disabled','true');
+          a.removeAttribute('href');
+          a.setAttribute('tabindex','-1');
+        });
+      });
+
+      // For other schemes in this card, disable if no reliable desktop fallback
+      card.querySelectorAll('.wallet-btn').forEach((a)=>{
+        const raw = a.getAttribute('href') || '';
+        if(raw.startsWith('https://') || raw.startsWith('http://')) return; // keep web links
+        if(raw.startsWith('bitcoin:') || raw.startsWith('okxwallet:') || raw.includes('metamask.app.link')){
+          a.classList.add('wallet-disabled');
+          a.setAttribute('aria-disabled','true');
+          a.removeAttribute('href');
+          a.setAttribute('tabindex','-1');
+        }
+      });
+    });
+  }
 
   /** @param {HTMLElement} card */
   function activateCard(card){

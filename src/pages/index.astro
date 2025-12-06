@@ -5,10 +5,11 @@ import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('blog');
-
-// Sort newest first
-posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.pubDate)));
+const posts = (await getCollection('blog'))
+	// Exclude drafts so links on the home page don't lead to 404s
+	.filter((p) => !((p.data as any).draft))
+	// Sort newest first
+	.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.pubDate)));
 ---
 <!doctype html>
 <html lang="en">

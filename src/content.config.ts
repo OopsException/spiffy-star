@@ -13,6 +13,8 @@ const blog = defineCollection({
 			tags: z.array(z.string()).optional(),
 			// Transform string to Date object
 			pubDate: z.coerce.date(),
+			// Optional draft flag: when true the post should be hidden
+			draft: z.boolean().optional(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: image().optional(),
 		}),
