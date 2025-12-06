@@ -10,8 +10,10 @@
 	--bg-alt: #13161b;
 	--panel: #1b1f24;
 	--panel-alt: #22262c;
-	--text: #e5e7eb;
-	--text-muted: #9ca3af;
+	/* Softer primary text to reduce contrast */
+	--text: color-mix(in srgb, #e5e7eb 75%, #c7cad1 25%);
+	/* Slightly darker muted text for subtlety */
+	--text-muted: color-mix(in srgb, #9ca3af 75%, var(--bg) 25%);
 	--border: #2b3038;
 	--accent: #8b5cf6;
 	--radius: 10px;
@@ -24,9 +26,9 @@
 	--box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 
 	/* Semi-opaque text helpers (derive from --text) */
-	--text-85: rgba(229,231,235,0.85);
-	--text-65: rgba(229,231,235,0.65);
-	--text-45: rgba(229,231,235,0.45);
+	--text-85: color-mix(in srgb, var(--text) 85%, var(--bg) 15%);
+	--text-65: color-mix(in srgb, var(--text) 65%, var(--bg) 35%);
+	--text-45: color-mix(in srgb, var(--text) 45%, var(--bg) 55%);
 	/* Accent RGB for legacy rgba() uses */
 	--accent-rgb: 139,92,246;
 }
@@ -50,7 +52,7 @@ body {
 	padding: 0;
 	text-align: left;
 	background: var(--bg);
-	color: var(--text);
+	color: var(--text-85);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	font-size: 20px;
@@ -85,7 +87,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: var(--text);
+	color: var(--text-85);
 	line-height: 1.2;
 }
 h1 {
@@ -118,6 +120,7 @@ p {
 }
 .prose p {
 	margin-bottom: 2em;
+	color: var(--text-65);
 }
 textarea {
 	width: 100%;
@@ -137,14 +140,14 @@ img {
 code {
 	padding: 2px 5px;
 	background-color: var(--panel-alt);
-	color: var(--text);
+	color: var(--text-85);
 	border-radius: 2px;
 }
 pre {
 	padding: 1.5em;
 	border-radius: var(--radius);
 	background-color: var(--panel);
-	color: var(--text);
+	color: var(--text-85);
 }
 pre > code {
 	all: unset;

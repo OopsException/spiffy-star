@@ -35,7 +35,7 @@ posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.p
 				/* Fluid size so title scales down on small screens without awkward wrapping */
 				font-size: clamp(1.8rem, 4vw, 2.5rem);
 				letter-spacing: -0.02em;
-				color: var(--text);
+				color: var(--text-85);
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -59,7 +59,7 @@ posts.sort((a, b) => Number(new Date(b.data.pubDate)) - Number(new Date(a.data.p
 			}
 			.post:first-of-type { border-top: none; padding-top: 0; }
 			.post a {
-				color: var(--text);
+				color: var(--text-85);
 				font-weight: 600;
 				text-decoration: none;
 				font-size: 1.05rem;
