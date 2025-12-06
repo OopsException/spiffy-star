@@ -6,57 +6,169 @@ const MATIC = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
 const USDC_SOL = "9Kr8AZqdbyvLaR4845QUoRhij37JCVHTVjS8UGe8zY85";
 const USDC_ETH = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
 const USDC_POLY = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
+import qrSol from '../assets/Solana-qr-code.jpeg';
+import qrEth from '../assets/Eth-qr-code.jpeg';
+import qrBtc from '../assets/Bitcome-qr-cde.jpeg';
+import qrMatic from '../assets/Polygon-qr-code.jpeg';
 ---
 
-<section class="donate-container">
-  <h2>Crypto Donations</h2>
+<section class="donate-container" aria-labelledby="donate-heading">
+  <h2 id="donate-heading">Support the Project — Crypto Donations</h2>
 
   <div class="donate-list">
 
-    <div class="coin">
-      <h3>Solana (SOL)</h3>
-      <p>{SOL}</p>
-      <img src="/qr-sol.png" alt="SOL QR" width="140" />
+    <div class="card">
+      <div class="card-info">
+        <h3>Solana (SOL)</h3>
+        <p class="addr">{SOL}</p>
+      </div>
+      <img class="qr" src={qrSol.src} alt="SOL QR" width="160" height="160" />
     </div>
 
-    <div class="coin">
-      <h3>Ethereum (ETH)</h3>
-      <p>{ETH}</p>
-      <img src="/qr-eth.png" alt="ETH QR" width="140" />
+    <div class="card">
+      <div class="card-info">
+        <h3>Ethereum (ETH)</h3>
+        <p class="addr">{ETH}</p>
+      </div>
+      <img class="qr" src={qrEth.src} alt="ETH QR" width="160" height="160" />
     </div>
 
-    <div class="coin">
-      <h3>Bitcoin (BTC)</h3>
-      <p>{BTC}</p>
-      <img src="/qr-btc.png" alt="BTC QR" width="140" />
+    <div class="card">
+      <div class="card-info">
+        <h3>Bitcoin (BTC)</h3>
+        <p class="addr">{BTC}</p>
+      </div>
+      <img class="qr" src={qrBtc.src} alt="BTC QR" width="160" height="160" />
     </div>
 
-    <div class="coin">
-      <h3>Polygon (MATIC)</h3>
-      <p>{MATIC}</p>
-      <img src="/qr-matic.png" alt="MATIC QR" width="140" />
+    <div class="card">
+      <div class="card-info">
+        <h3>Polygon (MATIC)</h3>
+        <p class="addr">{MATIC}</p>
+      </div>
+      <img class="qr" src={qrMatic.src} alt="MATIC QR" width="160" height="160" />
     </div>
 
-    <div class="coin">
-      <h3>USDC (Stablecoin)</h3>
-      <p><b>SOL (SPL):</b> {USDC_SOL}</p>
-      <p><b>ETH (ERC20):</b> {USDC_ETH}</p>
-      <p><b>Polygon:</b> {USDC_POLY}</p>
+    <div class="card card-usdc">
+      <div class="card-info">
+        <h3>USDC (Stablecoin)</h3>
+        <p><b>SOL (SPL):</b> <span class="addr inline">{USDC_SOL}</span></p>
+        <p><b>ETH (ERC20):</b> <span class="addr inline">{USDC_ETH}</span></p>
+        <p><b>Polygon:</b> <span class="addr inline">{USDC_POLY}</span></p>
+      </div>
     </div>
 
   </div>
 </section>
 
 <style>
-  .donate-container {
-    padding: 40px 0;
+  :root{
+    --bg: #ffffff;
+    --panel: #f7f7fa;
+    --muted: #6b7280;
+    --accent: #111827;
+    --radius: 12px;
+    --gap: 1.25rem;
   }
-  .donate-list {
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg: #0b0b0d;
+      --panel: #0f1720;
+      --muted: #9ca3af;
+      --accent: #f8fafc;
+    }
+  }
+
+  .donate-container{
+    padding: 36px 0;
+    color: var(--accent);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  .donate-container > h2{
+    margin: 0 0 18px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .donate-list{
     display: grid;
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: var(--gap);
+    align-items: start;
   }
-  .coin p {
-    font-family: monospace;
-    font-size: 0.9rem;
+
+  /* Desktop: two columns */
+  @media (min-width: 720px){
+    .donate-list{ grid-template-columns: repeat(2, 1fr); }
   }
+
+  .card{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius);
+    padding: 14px;
+    border: 1px solid rgba(15,23,42,0.06);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+  @media (prefers-color-scheme: dark){
+    .card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.04); }
+  }
+
+  .card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+    border-color: rgba(99,102,241,0.12);
+  }
+
+  .card-info{
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .card h3{
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .addr{
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", "Courier New", monospace;
+    font-size: 0.95rem;
+    color: var(--muted);
+    word-break: break-all;
+    background: transparent;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+  .addr.inline{ display: inline; padding: 0; border-radius: 0; }
+
+  .qr{
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* USDC card spans full width on larger screens for clarity */
+  .card-usdc{ grid-column: 1 / -1; }
+  @media (min-width:720px){ .card-usdc{ grid-column: span 2; } }
+
+  /* Small tweaks for mobile */
+  @media (max-width: 540px){
+    .card{ padding: 12px; gap: 12px; }
+    .qr{ width: 140px; height: 140px; }
+  }
+
+  /* reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce){
+    .card, .card:hover{ transform: none; transition: none; }
+  }
+
 </style>
