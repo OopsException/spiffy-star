@@ -14,6 +14,19 @@
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.4",
-    "sharp": "^0.34.3"
-  }
+    "sharp": "^0.34.5"
+  },
+  "description": "```sh\r npm create astro@latest -- --template blog\r ```",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OopsException/spiffy-star.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OopsException/spiffy-star/issues"
+  },
+  "homepage": "https://github.com/OopsException/spiffy-star#readme"
 }

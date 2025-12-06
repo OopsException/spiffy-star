@@ -1,7 +1,7 @@
 {
   "handle": "@your_handle_here",
-  "logoPath": "/assets/ig/logo/logo-b.png",
-  "noiseTexturePath": "/assets/ig/noise.png",
+  "logoPath": "/assets/ig/logo/logo-b.svg",
+  "noiseTexturePath": "/assets/ig/noise.svg",
   "fontFamily": "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif",
   "useGradient": true,
   "background": {
