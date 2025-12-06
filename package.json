@@ -28,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/OopsException/spiffy-star/issues"
   },
-  "homepage": "https://github.com/OopsException/spiffy-star#readme"
+  "homepage": "https://github.com/OopsException/spiffy-star#readme",
+  "devDependencies": {
+    "@astrojs/netlify": "^6.6.3"
+  }
 }

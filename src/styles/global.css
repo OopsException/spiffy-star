@@ -5,25 +5,30 @@
  */
 
 :root {
-	/* Dark-mode color system (dev-friendly gray palette) */
-	--bg: #0d0f12;
-	--bg-alt: #13161b;
-	--panel: #1b1f24;
-	--panel-alt: #22262c;
-	/* Softer primary text to reduce contrast */
-	--text: color-mix(in srgb, #e5e7eb 75%, #c7cad1 25%);
-	/* Slightly darker muted text for subtlety */
-	--text-muted: color-mix(in srgb, #9ca3af 75%, var(--bg) 25%);
-	--border: #2b3038;
+	/* Dark-mode color system (Japanese blossom - softer charcoal palette) */
+	--bg: #1a1c20; /* softened charcoal — a touch lighter for airiness */
+	--bg-alt: #202225; /* slightly lighter alternate background */
+	--panel: #262a2f; /* softer paper-like panel */
+	--panel-alt: #2b3035; /* slightly elevated, airy panel */
+	/* Clean, higher-contrast main text */
+	--text: #f0f0f3;
+	/* Muted warm gray-blue for secondary text */
+	--text-muted: #9da3ad;
+	--border: #3a4048; /* lighter, cleaner border */
 	--accent: #8b5cf6;
 	--radius: 10px;
+
+	/* Blossom accents (optional subtle tints) */
+	--blossom: #f2d4e6;
+	--blossom-muted: #e8c9d8;
 
 	/* Compatibility tokens (map old names to new variables) */
 	--black: var(--bg);
 	--gray-light: var(--panel-alt);
 	--gray-dark: var(--text);
 
-	--box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+	/* Softer, gentler shadow to feel like paper rather than deep elevation */
+	--box-shadow: 0 6px 18px rgba(16,18,20,0.16);
 
 	/* Semi-opaque text helpers (derive from --text) */
 	--text-85: color-mix(in srgb, var(--text) 85%, var(--bg) 15%);
@@ -31,6 +36,10 @@
 	--text-45: color-mix(in srgb, var(--text) 45%, var(--bg) 55%);
 	/* Accent RGB for legacy rgba() uses */
 	--accent-rgb: 139,92,246;
+
+	/* Very subtle glow tokens for accent elements */
+	--accent-glow: rgba(139,92,246,0.06);
+	--accent-blossom-glow: rgba(242,212,230,0.06);
 }
 @font-face {
 	font-family: "Atkinson";

@@ -1,0 +1,197 @@
+---
+---
+<div id="newsletter-popup" class="ns-overlay" hidden>
+  <div class="ns-card" role="dialog" aria-modal="true" aria-labelledby="ns-title">
+    <button class="ns-close" aria-label="Close newsletter popup">✕</button>
+    <h3 id="ns-title">Join the newsletter</h3>
+    <p class="ns-desc">Short notes, gentle updates — delivered quietly.</p>
+
+    <form class="ns-form" action="#" onsubmit="return false;">
+      <label class="ns-label" for="ns-email">Email</label>
+      <div class="ns-input-row">
+        <input id="ns-email" name="email" type="email" placeholder="you@example.com" required />
+        <button class="ns-submit" type="button">Subscribe</button>
+      </div>
+        <div class="ns-meta">
+          <span class="ns-note">We respect your privacy.</span>
+        </div>
+      <div class="ns-feedback" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .ns-overlay {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--bg) 70%, transparent 30%);
+    backdrop-filter: blur(6px) saturate(90%);
+    z-index: 9999;
+    transition: opacity 180ms ease;
+  }
+
+  .ns-card {
+    width: min(680px, calc(100% - 48px));
+    background: linear-gradient(180deg, var(--panel) 0%, color-mix(in srgb, var(--panel) 96%, white 4%) 100%);
+    border: 1px solid var(--border);
+    box-shadow: var(--box-shadow);
+    border-radius: calc(var(--radius) + 2px);
+    padding: 28px;
+    color: var(--text-85);
+    transform: translateY(6px);
+  }
+
+  .ns-close {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    background: transparent;
+    border: none;
+    color: var(--text-85);
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  h3#ns-title {
+    margin: 0 0 6px 0;
+    color: var(--text-85);
+    font-size: 1.25rem;
+  }
+
+  .ns-desc {
+    margin: 0 0 18px 0;
+    color: var(--text-65);
+    font-size: 0.95rem;
+  }
+
+  .ns-input-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  input#ns-email {
+    flex: 1 1 auto;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent 30%);
+    background: var(--panel-alt);
+    color: var(--text);
+    outline: none;
+  }
+
+  input#ns-email::placeholder { color: var(--text-65); }
+
+  .ns-submit {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(180deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 85%, white 15%) 100%);
+    color: var(--panel);
+    cursor: pointer;
+    transition: box-shadow 140ms ease, opacity 140ms ease;
+    box-shadow: 0 6px 18px var(--accent-glow);
+  }
+
+  .ns-submit:hover { opacity: 0.95; box-shadow: 0 8px 22px var(--accent-glow); }
+
+  .ns-meta { display:flex; justify-content:space-between; align-items:center; margin-top:12px; gap:8px; }
+  .ns-note { color: var(--text-65); font-size: 0.88rem; }
+
+  .ns-feedback { margin-top:12px; min-height:18px; color: var(--text-65); }
+
+  /* Ensure hidden overlay does not intercept pointer events (we set display in JS via hidden attr too) */
+  .ns-overlay[hidden] { display: none !important; pointer-events: none; opacity: 0; }
+
+  @media (max-width: 520px) {
+    .ns-card { padding:18px; }
+    .ns-submit { padding: 10px 12px; }
+  }
+</style>
+
+<script>
+// @ts-nocheck
+(() => {
+  const overlayEl = document.getElementById('newsletter-popup');
+  if (!(overlayEl instanceof HTMLElement)) return;
+
+  const shownKey = 'newsletter_shown_v1';
+  const subscribedKey = 'newsletter_subscribed_v1';
+
+  const hasShown = localStorage.getItem(shownKey);
+  const isSubscribed = localStorage.getItem(subscribedKey);
+  // Allow forcing the popup for testing: add ?newsletter=1 or ?showNewsletter=1 to the URL
+  const params = new URLSearchParams(window.location.search || '');
+  const forceShow = params.get('newsletter') === '1' || params.get('showNewsletter') === '1';
+
+  const emailEl = document.getElementById('ns-email');
+  const submitBtnEl = document.querySelector('.ns-submit');
+  const closeBtnEl = document.querySelector('.ns-close');
+  const feedbackEl = document.querySelector('.ns-feedback');
+  // blossom toggle removed — no longer used
+  if (!(emailEl instanceof HTMLInputElement) || !(submitBtnEl instanceof HTMLButtonElement) || !(closeBtnEl instanceof HTMLElement) || !(feedbackEl instanceof HTMLElement)) return;
+
+  const emailInput = emailEl;
+  const submitBtn = submitBtnEl;
+  const closeBtn = closeBtnEl;
+  const feedback = feedbackEl;
+
+  function show() { overlayEl.hidden = false; overlayEl.style.opacity = '1'; }
+  function hide() { overlayEl.hidden = true; overlayEl.style.opacity = '0'; }
+
+  // Only show on first visit unless already subscribed — allow forceShow override
+  if (forceShow || (!hasShown && !isSubscribed)) {
+    setTimeout(show, 600);
+    if (!forceShow) localStorage.setItem(shownKey, '1');
+  }
+
+  closeBtn.addEventListener('click', () => {
+    hide();
+    localStorage.setItem(shownKey, '1');
+  });
+
+  // blossom toggle removed — no dynamic accent changes
+
+  /** @param {string} email */
+  async function trySubscribe(email) {
+    const payload = { email };
+    const urls = ['/api/subscribe', '/.netlify/functions/subscribe'];
+    let lastError = 'Subscription failed';
+
+    for (const url of urls) {
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) return { ok: true };
+        const json = await res.json().catch(() => ({}));
+        if (res.status === 409) return { ok: false, message: json.error || 'Already subscribed' };
+        lastError = json.error || `Request failed (${res.status})`;
+      } catch (err) {
+        lastError = (err && typeof err === 'object' && 'message' in err) ? /** @type {{message:string}} */ (err).message : String(err);
+      }
+    }
+    return { ok: false, message: lastError };
+  }
+
+  submitBtn.addEventListener('click', async () => {
+    const email = (emailInput.value || '').trim();
+    if (!email) { feedback.textContent = 'Please enter your email.'; return; }
+    feedback.textContent = 'Subscribing…';
+    submitBtn.disabled = true;
+    const result = await trySubscribe(email);
+    submitBtn.disabled = false;
+    if (result.ok) {
+      feedback.textContent = 'Thank you — you are subscribed.';
+      localStorage.setItem(subscribedKey, '1');
+      setTimeout(() => hide(), 900);
+    } else {
+      feedback.textContent = result.message || 'Unable to subscribe.';
+    }
+  });
+
+})();
+</script>

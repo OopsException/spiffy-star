@@ -1,17 +1,22 @@
 ---
 interface Props {
-	date: Date;
+		date?: Date | string | null;
 }
 
-const { date } = Astro.props;
+const { date } = Astro.props as any;
+
+// Defensive: allow missing or string dates. If date is falsy, render nothing.
+const parsedDate = date ? new Date(date) : null;
+if (parsedDate && isNaN(parsedDate.getTime())) {
+	// invalid date -> treat as null
+}
+
 ---
 
-<time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString('en-us', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-		})
-	}
-</time>
+{ parsedDate ? (
+  <time datetime={parsedDate.toISOString()}>
+    {parsedDate.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
+  </time>
+ ) : (
+  <span aria-hidden="true"></span>
+ ) }

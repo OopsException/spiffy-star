@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 # Ignore generated IG output
 src/assets/ig/output/
+
+# Local Netlify folder
+.netlify
