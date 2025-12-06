@@ -1,0 +1,116 @@
+---
+const { chain = '', address = '' } = Astro.props;
+const addr = String(address || '');
+const enc = encodeURIComponent(addr);
+const c = (String(chain || '')).toLowerCase();
+---
+{addr && c === 'sol' ? (
+  <div class="send-via-wallet" aria-label={`Send to ${chain}`}>
+    <div class="wallets">
+      <a class="wallet-btn" href={`solana:${addr}?amount=0`} aria-label={`Send to Phantom (${chain})`}>
+        <span class="wallet-name">Phantom</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+      <a class="wallet-btn" href={`https://solflare.com/send?address=${enc}&amount=0`} aria-label={`Send to Solflare (${chain})`}>
+        <span class="wallet-name">Solflare</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+      <a class="wallet-btn" href={`okxwallet://wallet/send?address=${enc}&chain=SOL&amount=0`} aria-label={`Send to OKX Wallet (${chain})`}>
+        <span class="wallet-name">OKX Wallet</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+    </div>
+  </div>
+) : null}
+
+{addr && c === 'eth' ? (
+  <div class="send-via-wallet" aria-label={`Send to ${chain}`}>
+    <div class="wallets">
+      <a class="wallet-btn" href={`https://metamask.app.link/send/${enc}?value=0`} aria-label={`Send to MetaMask (${chain})`}>
+        <span class="wallet-name">MetaMask</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+      <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${enc}&asset=ETH&amount=0`} aria-label={`Send to Coinbase Wallet (${chain})`}>
+        <span class="wallet-name">Coinbase Wallet</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+      <a class="wallet-btn" href={`okxwallet://wallet/send?address=${enc}&chain=ETH&amount=0`} aria-label={`Send to OKX Wallet (${chain})`}>
+        <span class="wallet-name">OKX Wallet</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+    </div>
+  </div>
+) : null}
+
+{addr && c === 'matic' ? (
+  <div class="send-via-wallet" aria-label={`Send to ${chain}`}>
+    <div class="wallets">
+      <a class="wallet-btn" href={`https://metamask.app.link/send/${enc}?value=0`} aria-label={`Send to MetaMask (${chain})`}>
+        <span class="wallet-name">MetaMask</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+      <a class="wallet-btn" href={`https://go.cb-w.com/send?to=${enc}&asset=MATIC&amount=0`} aria-label={`Send to Coinbase Wallet (${chain})`}>
+        <span class="wallet-name">Coinbase Wallet</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+      <a class="wallet-btn" href={`okxwallet://wallet/send?address=${enc}&chain=POLYGON&amount=0`} aria-label={`Send to OKX Wallet (${chain})`}>
+        <span class="wallet-name">OKX Wallet</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+    </div>
+  </div>
+) : null}
+
+{addr && c === 'btc' ? (
+  <div class="send-via-wallet" aria-label={`Send to ${chain}`}>
+    <div class="wallets">
+      <a class="wallet-btn" href={`bitcoin:${addr}?amount=0`} aria-label={`Send to BlueWallet (${chain})`}>
+        <span class="wallet-name">BlueWallet</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+      <a class="wallet-btn" href={`https://link.trustwallet.com/send?coin=BTC&address=${enc}`} aria-label={`Send to Trust Wallet (${chain})`}>
+        <span class="wallet-name">Trust Wallet</span>
+        <span class="wallet-note">{addr}</span>
+      </a>
+    </div>
+  </div>
+) : null}
+
+<style>
+.send-via-wallet { width: 100%; }
+.wallets {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+.wallet-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+.wallet-btn:hover,
+.wallet-btn:focus {
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 8px rgba(var(--accent-rgb),0.06);
+  transform: translateY(-2px);
+}
+.wallet-name { font-weight: 600; color: var(--text); }
+.wallet-note { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", monospace; color: var(--text-muted); font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (min-width: 720px) {
+  .wallets { display: flex; gap: 1rem; }
+  .wallet-btn { flex: 1 1 0; }
+}
+
+/* full width on mobile handled by grid and width:100% on .wallet-btn */
+
+</style>

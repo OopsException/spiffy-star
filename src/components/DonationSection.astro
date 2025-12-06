@@ -1,11 +1,5 @@
 ---
-const SOL = "9Kr8AZqdbyvLaR4845QUoRhij37JCVHTVjS8UGe8zY85";
-const ETH = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
-const BTC = "bc1q4yj292gxx83hv6w3nl4syxeq4kh0rp3a6nxxx8";
-const MATIC = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
-const USDC_SOL = "9Kr8AZqdbyvLaR4845QUoRhij37JCVHTVjS8UGe8zY85";
-const USDC_ETH = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
-const USDC_POLY = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
+import { SOL, ETH, BTC, MATIC, USDC_SOL, USDC_ETH, USDC_POLY } from '../consts';
 import qrSol from '../assets/Solana-qr-code.jpeg';
 import qrEth from '../assets/Eth-qr-code.jpeg';
 import qrBtc from '../assets/Bitcome-qr-cde.jpeg';
@@ -17,7 +11,7 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
 
   <div class="donate-list">
 
-    <div class="card">
+    <div class="card" data-address={SOL} role="button" tabindex="0">
       <div class="card-info">
         <h3>Solana (SOL)</h3>
         <p class="addr">{SOL}</p>
@@ -25,7 +19,7 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
       <img class="qr" src={qrSol.src} alt="SOL QR" width="160" height="160" />
     </div>
 
-    <div class="card">
+    <div class="card" data-address={ETH} role="button" tabindex="0">
       <div class="card-info">
         <h3>Ethereum (ETH)</h3>
         <p class="addr">{ETH}</p>
@@ -33,7 +27,7 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
       <img class="qr" src={qrEth.src} alt="ETH QR" width="160" height="160" />
     </div>
 
-    <div class="card">
+    <div class="card" data-address={BTC} role="button" tabindex="0">
       <div class="card-info">
         <h3>Bitcoin (BTC)</h3>
         <p class="addr">{BTC}</p>
@@ -41,7 +35,7 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
       <img class="qr" src={qrBtc.src} alt="BTC QR" width="160" height="160" />
     </div>
 
-    <div class="card">
+    <div class="card" data-address={MATIC} role="button" tabindex="0">
       <div class="card-info">
         <h3>Polygon (MATIC)</h3>
         <p class="addr">{MATIC}</p>
@@ -49,12 +43,24 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
       <img class="qr" src={qrMatic.src} alt="MATIC QR" width="160" height="160" />
     </div>
 
-    <div class="card card-usdc">
+    <div class="card" data-address={USDC_SOL} role="button" tabindex="0">
       <div class="card-info">
-        <h3>USDC (Stablecoin)</h3>
-        <p><b>SOL (SPL):</b> <span class="addr inline">{USDC_SOL}</span></p>
-        <p><b>ETH (ERC20):</b> <span class="addr inline">{USDC_ETH}</span></p>
-        <p><b>Polygon:</b> <span class="addr inline">{USDC_POLY}</span></p>
+        <h3>USDC — Solana (SPL)</h3>
+        <p class="addr">{USDC_SOL}</p>
+      </div>
+    </div>
+
+    <div class="card" data-address={USDC_ETH} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>USDC — Ethereum (ERC-20)</h3>
+        <p class="addr">{USDC_ETH}</p>
+      </div>
+    </div>
+
+    <div class="card" data-address={USDC_POLY} role="button" tabindex="0">
+      <div class="card-info">
+        <h3>USDC — Polygon</h3>
+        <p class="addr">{USDC_POLY}</p>
       </div>
     </div>
 
@@ -79,7 +85,7 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
   .donate-list{
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--gap);
+    gap: 1.75rem; /* increased spacing for more breathing room */
     align-items: start;
   }
 
@@ -98,12 +104,41 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
     padding: 14px;
     border: 1px solid var(--border);
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    position: relative;
+    cursor: pointer;
+    will-change: transform, box-shadow, border-color;
   }
 
   .card:hover{
     transform: translateY(-6px);
     box-shadow: var(--box-shadow);
     border-color: rgba(var(--accent-rgb),0.12);
+  }
+
+  /* Click-to-copy feedback */
+  .card.copied{
+    border-color: var(--accent);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--box-shadow), 0 8px 24px rgba(var(--accent-rgb), 0.06);
+  }
+  .card.copied::after{
+    content: 'Copied!';
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: var(--accent);
+    color: var(--panel);
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    opacity: 1;
+    animation: copied-fade 1100ms forwards;
+    pointer-events: none;
+  }
+  @keyframes copied-fade{
+    0% { opacity: 1; transform: translateY(0); }
+    70% { opacity: 1; transform: translateY(-6px); }
+    100% { opacity: 0; transform: translateY(-12px); }
   }
 
   .card-info{
@@ -145,6 +180,7 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
   /* Small tweaks for mobile */
   @media (max-width: 540px){
     .card{ padding: 12px; gap: 12px; }
+    .donate-list{ gap: 1.25rem; }
     .qr{ width: 140px; height: 140px; }
   }
 
@@ -153,4 +189,66 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
     .card, .card:hover{ transform: none; transition: none; }
   }
 
+  /* small accessibility focus style */
+  .card:focus{
+    outline: 2px solid rgba(var(--accent-rgb),0.18);
+    outline-offset: 2px;
+  }
+
 </style>
+
+<script>
+// @ts-nocheck
+// Click-to-copy donation addresses with visual feedback
+;(function(){
+  const list = document.querySelector('.donate-list');
+  if(!list) return;
+
+  /** @param {HTMLElement} card */
+  function activateCard(card){
+    if(!card) return;
+    const address = card.dataset.address;
+    if(!address) return;
+    // copy
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(address).catch(()=>{});
+    } else {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = address;
+      ta.setAttribute('readonly','');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      ta.remove();
+    }
+
+    // visual feedback
+    card.classList.add('copied');
+    setTimeout(()=> card.classList.remove('copied'), 1100);
+  }
+
+  list.addEventListener('click', (ev)=>{
+    const e = /** @type {Event} */ (ev);
+    const tgt = e.target;
+    if(!(tgt instanceof Element)) return;
+    const card = tgt.closest('.card');
+    if(!(card instanceof HTMLElement)) return;
+    activateCard(card);
+  });
+
+  // keyboard support: Enter / Space to copy
+  list.addEventListener('keydown', (ev)=>{
+    const e = /** @type {KeyboardEvent} */ (ev);
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const tgt = e.target;
+    if(!(tgt instanceof Element)) return;
+    const card = tgt.closest('.card');
+    if(!(card instanceof HTMLElement)) return;
+    e.preventDefault();
+    activateCard(card);
+  });
+})();
+</script>

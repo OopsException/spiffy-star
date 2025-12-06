@@ -5,10 +5,32 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import SendViaWallet from '../components/SendViaWallet.astro';
+import { SOL, ETH, BTC, MATIC } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	chain: rawChain,
+} = Astro.props as any;
+
+const chain = String(rawChain || '').toLowerCase();
+
+const walletAddress =
+	chain === 'sol'
+		? SOL
+		: chain === 'eth'
+		? ETH
+		: chain === 'matic'
+		? MATIC
+		: chain === 'btc'
+		? BTC
+		: '';
 ---
 
 <html lang="en">
@@ -98,6 +120,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				overflow-wrap: break-word;
 			}
 
+			/* Send via wallet container (visible below article, before footer) */
+			.send-via {
+				max-width: 720px;
+				margin: 1.75rem auto;
+				padding: 0 1rem;
+			}
+			.send-via h3 {
+				margin: 0 0 0.5rem 0;
+				color: var(--text-85);
+				font-size: 1rem;
+				font-weight: 600;
+			}
+
 			.prose h1,
 			.prose h2,
 			.prose h3,
@@ -142,6 +177,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					max-width: 96%;
 					padding: 0.6rem;
 				}
+
+
+				.send-via {
+					max-width: 720px;
+					margin: 1.5rem auto;
+					padding: 0 1rem;
+				}
+				.send-via h3 {
+					margin: 0 0 0.5rem 0;
+					color: var(--text-85);
+					font-size: 1rem;
+					font-weight: 600;
+				}
 				.prose p {
 					/* remove the soft max-width so paragraphs can flow naturally */
 					max-width: none;
@@ -173,7 +221,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					<slot />
 				</div>
 			</article>
-		</main>
-		<Footer />
+			</main>
+
+			{walletAddress ? (
+				<section class="send-via" aria-label="Send directly from your wallet">
+					<h3>Send directly from your wallet</h3>
+					<SendViaWallet chain={chain} address={walletAddress} />
+				</section>
+			) : null}
+			<Footer />
 	</body>
 </html>
