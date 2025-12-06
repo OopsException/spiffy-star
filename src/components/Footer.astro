@@ -1,5 +1,6 @@
 ---
 const today = new Date();
+import MinimalRotatingB from './MinimalRotatingB.astro';
 ---
 
 <footer>
@@ -19,9 +20,10 @@ const today = new Date();
  				</svg>
  			</a>
  		</div>
- 		<div class="watermark">&copy; {today.getFullYear()} Massoud</div>
+ 		<div class="watermark">&copy; {today.getFullYear()} Massoud. All rights reserved.</div>
  	</div>
 </footer>
+<MinimalRotatingB />
 <style>
 	footer {
 		padding: .75rem 1rem .75rem 1rem;

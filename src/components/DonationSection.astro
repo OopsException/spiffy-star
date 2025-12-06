@@ -1,0 +1,62 @@
+---
+const SOL = "9Kr8AZqdbyvLaR4845QUoRhij37JCVHTVjS8UGe8zY85";
+const ETH = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
+const BTC = "bc1q4yj292gxx83hv6w3nl4syxeq4kh0rp3a6nxxx8";
+const MATIC = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
+const USDC_SOL = "9Kr8AZqdbyvLaR4845QUoRhij37JCVHTVjS8UGe8zY85";
+const USDC_ETH = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
+const USDC_POLY = "0xE3340a5C13Bff84E0407E5add572418556fdd94f";
+---
+
+<section class="donate-container">
+  <h2>Crypto Donations</h2>
+
+  <div class="donate-list">
+
+    <div class="coin">
+      <h3>Solana (SOL)</h3>
+      <p>{SOL}</p>
+      <img src="/qr-sol.png" alt="SOL QR" width="140" />
+    </div>
+
+    <div class="coin">
+      <h3>Ethereum (ETH)</h3>
+      <p>{ETH}</p>
+      <img src="/qr-eth.png" alt="ETH QR" width="140" />
+    </div>
+
+    <div class="coin">
+      <h3>Bitcoin (BTC)</h3>
+      <p>{BTC}</p>
+      <img src="/qr-btc.png" alt="BTC QR" width="140" />
+    </div>
+
+    <div class="coin">
+      <h3>Polygon (MATIC)</h3>
+      <p>{MATIC}</p>
+      <img src="/qr-matic.png" alt="MATIC QR" width="140" />
+    </div>
+
+    <div class="coin">
+      <h3>USDC (Stablecoin)</h3>
+      <p><b>SOL (SPL):</b> {USDC_SOL}</p>
+      <p><b>ETH (ERC20):</b> {USDC_ETH}</p>
+      <p><b>Polygon:</b> {USDC_POLY}</p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .donate-container {
+    padding: 40px 0;
+  }
+  .donate-list {
+    display: grid;
+    gap: 2rem;
+  }
+  .coin p {
+    font-family: monospace;
+    font-size: 0.9rem;
+  }
+</style>
