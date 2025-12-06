@@ -59,10 +59,10 @@ const categoryLabel = categorySafe
       ) : (
         posts.map((post) => (
           <div style="margin-bottom:2rem;">
-            <a href={`/blog/${post.id}`} style="font-size:1.2rem;color:#111;text-decoration:none;">
+            <a href={`/blog/${post.id}`} style="font-size:1.2rem;color:var(--text);text-decoration:none;">
               {post.data.title}
             </a>
-            <p style="color:#666;">{post.data.description}</p>
+            <p style="color:var(--text-muted);">{post.data.description}</p>
           </div>
         ))
       )}

@@ -62,33 +62,18 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
 </section>
 
 <style>
-  :root{
-    --bg: #ffffff;
-    --panel: #f7f7fa;
-    --muted: #6b7280;
-    --accent: #111827;
-    --radius: 12px;
-    --gap: 1.25rem;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg: #0b0b0d;
-      --panel: #0f1720;
-      --muted: #9ca3af;
-      --accent: #f8fafc;
-    }
-  }
+  /* Use global color variables (defined in src/styles/global.css) */
 
   .donate-container{
     padding: 36px 0;
-    color: var(--accent);
+    color: var(--text);
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   }
   .donate-container > h2{
     margin: 0 0 18px 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--text);
   }
 
   .donate-list{
@@ -107,21 +92,18 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+    background: linear-gradient(180deg, var(--panel), var(--panel-alt));
     backdrop-filter: blur(4px);
-    border-radius: var(--radius);
+    border-radius: 12px;
     padding: 14px;
-    border: 1px solid rgba(15,23,42,0.06);
+    border: 1px solid var(--border);
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-  }
-  @media (prefers-color-scheme: dark){
-    .card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.04); }
   }
 
   .card:hover{
     transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(2,6,23,0.12);
-    border-color: rgba(99,102,241,0.12);
+    box-shadow: var(--box-shadow);
+    border-color: rgba(var(--accent-rgb),0.12);
   }
 
   .card-info{
@@ -132,14 +114,14 @@ import qrMatic from '../assets/Polygon-qr-code.jpeg';
     margin: 0 0 8px 0;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--text);
   }
 
   .addr{
     display: block;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", "Courier New", monospace;
     font-size: 0.95rem;
-    color: var(--muted);
+    color: var(--text-muted);
     word-break: break-all;
     background: transparent;
     padding: 6px 8px;

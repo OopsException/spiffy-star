@@ -5,16 +5,30 @@
  */
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
-		rgba(var(--gray), 33%);
+	/* Dark-mode color system (dev-friendly gray palette) */
+	--bg: #0d0f12;
+	--bg-alt: #13161b;
+	--panel: #1b1f24;
+	--panel-alt: #22262c;
+	--text: #e5e7eb;
+	--text-muted: #9ca3af;
+	--border: #2b3038;
+	--accent: #8b5cf6;
+	--radius: 10px;
+
+	/* Compatibility tokens (map old names to new variables) */
+	--black: var(--bg);
+	--gray-light: var(--panel-alt);
+	--gray-dark: var(--text);
+
+	--box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+
+	/* Semi-opaque text helpers (derive from --text) */
+	--text-85: rgba(229,231,235,0.85);
+	--text-65: rgba(229,231,235,0.65);
+	--text-45: rgba(229,231,235,0.45);
+	/* Accent RGB for legacy rgba() uses */
+	--accent-rgb: 139,92,246;
 }
 @font-face {
 	font-family: "Atkinson";
@@ -35,11 +49,10 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
+	background: var(--bg);
+	color: var(--text);
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
 	font-size: 20px;
 	line-height: 1.7;
 }
@@ -72,7 +85,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
+	color: var(--text);
 	line-height: 1.2;
 }
 h1 {
@@ -98,7 +111,7 @@ a {
 	color: var(--accent);
 }
 a:hover {
-	color: var(--accent);
+	color: color-mix(in srgb, var(--accent) 80%, var(--text) 20%);
 }
 p {
 	margin-bottom: 1em;
@@ -123,12 +136,15 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+	background-color: var(--panel-alt);
+	color: var(--text);
 	border-radius: 2px;
 }
 pre {
 	padding: 1.5em;
-	border-radius: 8px;
+	border-radius: var(--radius);
+	background-color: var(--panel);
+	color: var(--text);
 }
 pre > code {
 	all: unset;
@@ -138,10 +154,12 @@ blockquote {
 	padding: 0 0 0 20px;
 	margin: 0;
 	font-size: 1.333em;
+	color: var(--text-muted);
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--border);
+	opacity: 0.6;
 }
 @media (max-width: 720px) {
 	body {

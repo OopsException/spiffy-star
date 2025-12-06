@@ -58,11 +58,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				font-weight: 700;
 				font-size: clamp(1.5rem, 3.2vw, 2rem);
 				line-height: 1.05;
-				color: rgb(var(--black));
+				color: var(--text);
 			}
 			.hero-date {
 				margin-top: 0.25rem;
-				color: rgba(var(--gray-dark), 0.65);
+				color: var(--text-65);
 				font-size: 0.95rem;
 				font-weight: 300;
 			}
@@ -70,7 +70,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin-top: 0.75rem;
 				border: none;
 				height: 1px;
-				background: rgba(var(--gray-light), 0.9);
+				background: var(--border);
 			}
 			/* Content column: keep a comfortable measure for reading while
 			   allowing the area to be wider and more fluid on small screens. */
@@ -80,7 +80,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				max-width: min(70ch, calc(100% - 2em));
 				margin: 0 auto;
 				padding: 1em;
-				color: rgb(var(--gray-dark));
+				color: var(--text);
 			}
 
 			/* Paragraph typography: airy, editorial rhythm */
